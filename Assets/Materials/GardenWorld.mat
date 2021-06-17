@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GasGiant
-  m_Shader: {fileID: 4800000, guid: a44493d6866404f5dae2a7263d278b52, type: 3}
+  m_Name: GardenWorld
+  m_Shader: {fileID: 4800000, guid: 244b5dffbf62e405eada55d9f421aec0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,6 +39,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LandRampTexture:
+        m_Texture: {fileID: 2800000, guid: baf1b57521f804bf5af0139fd315bb74, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,8 +63,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 14611eebeda0b4e8c973b96ef69ffacb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WaterRampTexture:
+        m_Texture: {fileID: 2800000, guid: da7d196ac067b42f9a5240e92c70f694, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
+    - _CloudCoverage: 0.33333334
+    - _CloudScale: 3
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DitheringSize: 0.1
@@ -68,6 +78,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LandCoverage: 0.5
+    - _LandRimPower: 3
+    - _LandmassScale: 3.6
     - _Metallic: 0
     - _Mode: 0
     - _NoiseScale: 5
@@ -77,12 +90,14 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Stretch: 5.09
-    - _TurbulenceRotation: 0.5
+    - _Stretch: 5
+    - _TurbulenceRotation: 0.25
     - _TurbulenceScale: 2
-    - _TurbulenceSpeed: 1
-    - _TurbulenceStrength: 2.15
+    - _TurbulenceSpeed: 0.2
+    - _TurbulenceStrength: 0.56
     - _UVSec: 0
+    - _WaterNoiseScale: 0.5
+    - _WaterRimPower: 3
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
