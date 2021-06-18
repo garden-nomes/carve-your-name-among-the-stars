@@ -23,6 +23,8 @@ public class PlanetIndicator : MonoBehaviour
     {
         if (planet == null)
         {
+            // move offscreen
+            rectTransform.anchoredPosition = new Vector2(0f, -50f);
             return;
         }
 

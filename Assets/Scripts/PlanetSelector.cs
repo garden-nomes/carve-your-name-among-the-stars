@@ -7,6 +7,7 @@ public class PlanetSelector : MonoBehaviour
     public GameObject spaceship;
     public string planetTag;
     public PlanetIndicator indicator;
+    public float minimumDistance = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,11 @@ public class PlanetSelector : MonoBehaviour
             }
         }
 
-        indicator.planet = bestPlanet;
+        var toBestPlanet = bestPlanet.transform.position - spaceship.transform.position;
+        if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
+            indicator.planet = null;
+        else
+            indicator.planet = bestPlanet;
+
     }
 }
