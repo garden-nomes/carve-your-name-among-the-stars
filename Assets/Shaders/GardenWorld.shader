@@ -99,7 +99,7 @@ Shader "Planets/Garden World"
                 outDepth = clipPos.z / clipPos.w;
 
                 // calculate lighting
-                float3 worldLightDir = normalize(worldSpacePos - _LightPosition);
+                float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
                 // add noise
@@ -203,7 +203,7 @@ Shader "Planets/Garden World"
                 clip(_LandCoverage - (landmassNoise * 0.5 + 0.5));
 
                 // calculate lighting
-                float3 worldLightDir = normalize(worldSpacePos - _LightPosition);
+                float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
                 // apply noise

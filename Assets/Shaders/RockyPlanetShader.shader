@@ -4,6 +4,7 @@ Shader "Planets/Rocky"
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
         _NoiseScale ("Noise Scale", Float) = 3.0
+        _NoiseDepth ("Noise Depth", Float) = 0.25
         _RampTexture ("Ramp Texture", 2D) = "red"
         _RimPower ("Rim Lighting", Float) = 3.0
         _DitheringSize ("Dither Size", Float) = 0.1
@@ -23,6 +24,7 @@ Shader "Planets/Rocky"
 
             float3 _LightPosition;
             float _NoiseScale;
+            float _NoiseDepth;
             float _RimPower;
             float _DitheringSize;
             sampler2D _RampTexture;
@@ -79,12 +81,11 @@ Shader "Planets/Rocky"
                 outDepth = clipPos.z / clipPos.w;
 
                 // calculate lighting
-                float3 worldLightDir = normalize(worldSpacePos - _LightPosition);
+                float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
                 // add noise
-                float n = noise(objectSpacePos * _NoiseScale) * 0.5 + 0.5;
-                lighting *= n;
+                lighting += noise(objectSpacePos * _NoiseScale) * _NoiseDepth;
 
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);

@@ -89,7 +89,7 @@ Shader "Planets/Gas Giant"
                 outDepth = clipPos.z / clipPos.w;
 
                 // calculate lighting
-                float3 worldLightDir = normalize(worldSpacePos - _LightPosition);
+                float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
                 // turbulence
