@@ -6,6 +6,7 @@ public class SpaceshipController : MonoBehaviour
     public float timeToMaxSpeed = 3f;
     public float timeToStop = 1f;
     private Vector3 velocity;
+    public Vector3 Velocity => velocity;
 
     public float maxRotationalSpeed = 90f;
     public float timeToMaxRotationalSpeed = 1f;
