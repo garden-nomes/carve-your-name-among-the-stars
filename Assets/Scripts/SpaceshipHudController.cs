@@ -8,10 +8,19 @@ public class SpaceshipHudController : MonoBehaviour
 
     public Dial speedDial;
     public Dial fuelDial;
+    public GameObject fuelLight;
+    public GameObject inMotionLight;
+    public GameObject fullStopLight;
 
     private void Update()
     {
-        speedDial.value = spaceshipController.Velocity.magnitude / spaceshipController.maxSpeed;
+        float speed = spaceshipController.Velocity.magnitude;
+
+        speedDial.value = speed / spaceshipController.maxSpeed;
         fuelDial.value = 1f;
+
+        inMotionLight.SetActive(speed > 0f);
+        fullStopLight.SetActive(speed == 0f);
+        fuelLight.SetActive(false);
     }
 }
