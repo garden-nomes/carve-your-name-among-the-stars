@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.nomes.pixel-text": {
+      "version": "https://github.com/garden-nomes/unity-pixel-text.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "08e7182aa9d603c10c6ea5f27029841a6a494b92"
+    },
     "com.unity.collab-proxy": {
       "version": "1.5.7",
       "depth": 0,
