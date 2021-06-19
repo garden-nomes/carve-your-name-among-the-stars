@@ -13,10 +13,12 @@ public class PlanetInfo : MonoBehaviour
     public PlanetClass planetClass;
     public MarkovNameGeneratorScriptableObject nameGenerator;
 
+    [HideInInspector] public bool isScanned = false;
     [HideInInspector] public string planetName;
 
     void Start()
     {
         planetName = nameGenerator.Generate();
+        isScanned = false;
     }
 }
