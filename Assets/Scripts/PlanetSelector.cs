@@ -4,25 +4,13 @@ using UnityEngine;
 
 public class PlanetSelector : MonoBehaviour
 {
-    public GameObject spaceship;
     public string planetTag;
     public PlanetIndicator indicator;
     public float minimumDistance = 2f;
+    public float maximumDistance = 200f;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (indicator == null || spaceship == null)
-        {
-            return;
-        }
-
         var planets = GameObject.FindGameObjectsWithTag(planetTag);
 
         GameObject bestPlanet = null;
@@ -30,8 +18,14 @@ public class PlanetSelector : MonoBehaviour
 
         foreach (var planet in planets)
         {
-            var toPlanet = planet.transform.position - spaceship.transform.position;
-            float dot = Vector3.Dot(toPlanet.normalized, spaceship.transform.forward);
+            var toPlanet = planet.transform.position - transform.position;
+
+            if (toPlanet.sqrMagnitude > maximumDistance * maximumDistance)
+            {
+                continue;
+            }
+
+            float dot = Vector3.Dot(toPlanet.normalized, transform.forward);
 
             if (dot > bestDot)
             {
@@ -40,11 +34,11 @@ public class PlanetSelector : MonoBehaviour
             }
         }
 
-        var toBestPlanet = bestPlanet.transform.position - spaceship.transform.position;
+        var toBestPlanet = bestPlanet.transform.position - transform.position;
         if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
             indicator.planet = null;
         else
-            indicator.planet = bestPlanet;
+            indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
 
     }
 }

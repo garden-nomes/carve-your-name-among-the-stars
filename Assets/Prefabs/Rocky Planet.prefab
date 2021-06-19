@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5915606120545833561}
   - component: {fileID: 5915606120545833565}
   - component: {fileID: 5915606120545833560}
+  - component: {fileID: -3650055140193443610}
   m_Layer: 0
   m_Name: Rocky Planet
   m_TagString: Planet
@@ -122,3 +123,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: -5
+--- !u!114 &-3650055140193443610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915606120545833566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121fc47ef01da45e7bb0ad07ff86b181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetClass: 1
+  nameGenerator: {fileID: 11400000, guid: 4f0ed327288f7498c8e000c43763c62e, type: 2}
+  planetName: 

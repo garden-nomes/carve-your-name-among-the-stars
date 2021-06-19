@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlanetIndicator : MonoBehaviour
 {
-    public GameObject planet;
+    public PlanetInfo planet;
     public GameObject spaceship;
 
     public PixelText nameLabel;
@@ -32,5 +32,20 @@ public class PlanetIndicator : MonoBehaviour
 
         float distance = (spaceship.transform.position - planet.transform.position).magnitude;
         distanceLabel.text = $"{distance.ToString("F1")} KM";
+
+        nameLabel.text = planet.planetName.ToUpper();
+
+        switch (planet.planetClass)
+        {
+            case PlanetClass.GardenWorld:
+                typeLabel.text = "GARDEN WORLD";
+                break;
+            case PlanetClass.GasGiant:
+                typeLabel.text = "GAS GIANT";
+                break;
+            case PlanetClass.RockyPlanet:
+                typeLabel.text = "ROCKY PLANET";
+                break;
+        }
     }
 }
