@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2595f66c26bb44a28972c290e4d35d82, type: 3}
+  m_Name: PlanetDescriptions
+  m_EditorClassIdentifier: 
+  gardenWorldEvents:
+  - The people of this planet breath a different atmosphere. They are happy. You
+    imagine what it must be like to walk among them.
+  rockyPlanetEvents:
+  - 'Big lump of rock in space.
+
+
+
+    What more could you want?'
+  gasGiantEvents:
+  - Swirly clouds pretty

@@ -10,6 +10,8 @@ public class PlanetScanner : MonoBehaviour
     public float scanRadius = 5f;
     public float scanTime = 3f;
     public ScannerUI scannerUI;
+    public TextController textController;
+    public PlanetDescriptions planetDescriptions;
 
     private SpaceshipController spaceshipController;
     private PlanetInfo planet;
@@ -52,6 +54,7 @@ public class PlanetScanner : MonoBehaviour
                     {
                         // scan complete
                         onComplete?.Invoke(planet);
+                        ShowDescription(planet);
                         planet.isScanned = true;
                         scannerUI.progress = 1f;
                     }
@@ -69,5 +72,11 @@ public class PlanetScanner : MonoBehaviour
             scannerUI.progress = 0f;
             wasMoving = true;
         }
+    }
+
+    private void ShowDescription(PlanetInfo planet)
+    {
+        string evt = planetDescriptions.GetEvent(planet.planetClass);
+        textController.ShowText(evt.ToUpper());
     }
 }
