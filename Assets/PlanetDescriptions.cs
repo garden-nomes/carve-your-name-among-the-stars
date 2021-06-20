@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Planet Descriptions")]
 public class PlanetDescriptions : ScriptableObject
 {
-    [TextArea] public string[] gardenWorldEvents;
-    [TextArea] public string[] rockyPlanetEvents;
-    [TextArea] public string[] gasGiantEvents;
+    [TextArea(4, 80)] public string[] gardenWorldEvents;
+    [TextArea(4, 80)] public string[] rockyPlanetEvents;
+    [TextArea(4, 80)] public string[] gasGiantEvents;
 
     private int gardenWorldEventIndex;
     private int rockyPlanetEventIndex;
