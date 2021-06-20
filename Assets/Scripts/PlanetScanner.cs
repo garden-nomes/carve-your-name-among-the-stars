@@ -76,7 +76,29 @@ public class PlanetScanner : MonoBehaviour
 
     private void ShowDescription(PlanetInfo planet)
     {
-        string evt = planetDescriptions.GetEvent(planet.planetClass);
+        string evt = planetDescriptions.GetEncounter(planet.planetClass);
         textController.ShowText(evt.ToUpper());
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Test Garden World Encounters")]
+    private void TestGardenWorldEncounters()
+    {
+        StartCoroutine(TestEncountersCoroutine(planetDescriptions.gardenWorldEvents));
+    }
+
+    [ContextMenu("Test Rocky Planet Encounters")]
+    private void TestRockyPlanetEncounters()
+    {
+        StartCoroutine(TestEncountersCoroutine(planetDescriptions.rockyPlanetEvents));
+    }
+
+    private IEnumerator TestEncountersCoroutine(string[] encounters)
+    {
+        foreach (var encounter in encounters)
+        {
+            yield return textController.ShowText(encounter.ToUpper());
+        }
+    }
+#endif
 }

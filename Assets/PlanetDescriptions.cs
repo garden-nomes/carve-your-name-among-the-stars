@@ -9,61 +9,71 @@ public class PlanetDescriptions : ScriptableObject
     [TextArea(4, 80)] public string[] rockyPlanetEvents;
     [TextArea(4, 80)] public string[] gasGiantEvents;
 
+    private int[] gardenWorldEventOrder;
     private int gardenWorldEventIndex;
     private int rockyPlanetEventIndex;
+    private int[] gasGiantEventOrder;
     private int gasGiantEventIndex;
 
     private void OnEnable()
     {
-        Shuffle(gardenWorldEvents);
-        Shuffle(gasGiantEvents);
+        gardenWorldEventOrder = new int[gardenWorldEvents.Length];
+        for (int i = 0; i < gardenWorldEvents.Length; i++)
+            gardenWorldEventOrder[i] = i;
+        Shuffle(gardenWorldEventOrder);
+
+        gasGiantEventOrder = new int[gasGiantEvents.Length];
+        for (int i = 0; i < gasGiantEvents.Length; i++)
+            gasGiantEventOrder[i] = i;
+        Shuffle(gasGiantEventOrder);
+
         gardenWorldEventIndex = 0;
         rockyPlanetEventIndex = 0;
         gasGiantEventIndex = 0;
     }
 
-    public string GetEvent(PlanetClass planetClass)
+    public string GetEncounter(PlanetClass planetClass)
     {
-        string evt = "";
+        string text = "";
 
         if (planetClass == PlanetClass.RockyPlanet)
         {
-            evt = rockyPlanetEvents[rockyPlanetEventIndex];
+            text = rockyPlanetEvents[rockyPlanetEventIndex];
             if (rockyPlanetEventIndex < rockyPlanetEvents.Length - 1)
                 rockyPlanetEventIndex++;
         }
         else if (planetClass == PlanetClass.GasGiant)
         {
-            evt = gasGiantEvents[gasGiantEventIndex];
+            text = gasGiantEvents[gasGiantEventOrder[gasGiantEventIndex]];
 
             gasGiantEventIndex++;
             if (gasGiantEventIndex >= gasGiantEvents.Length)
             {
                 gasGiantEventIndex = 0;
-                Shuffle(gasGiantEvents);
+                Shuffle(gasGiantEventOrder);
             }
         }
         else if (planetClass == PlanetClass.GardenWorld)
         {
-            evt = gardenWorldEvents[gardenWorldEventIndex];
+            text = gardenWorldEvents[gardenWorldEventOrder[gardenWorldEventIndex]];
 
             gardenWorldEventIndex++;
             if (gardenWorldEventIndex >= gardenWorldEvents.Length)
             {
                 gardenWorldEventIndex = 0;
-                Shuffle(gardenWorldEvents);
+                Shuffle(gardenWorldEventOrder);
             }
         }
 
-        return evt;
+        return text;
     }
 
-    private void Shuffle(string[] array)
+    private void Shuffle(int[] array)
     {
         for (int i = array.Length - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
-            string tmp = array[i];
+            int tmp = array[i];
             array[i] = array[j];
             array[j] = tmp;
         }

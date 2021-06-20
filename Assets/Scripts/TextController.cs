@@ -20,11 +20,11 @@ public class TextController : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(0f, -200f);
     }
 
-    public void ShowText(string text)
+    public Coroutine ShowText(string text)
     {
         // split text into pages on a triple-newline
         var pages = text.Split(new [] { "\n\n\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-        StartCoroutine(ShowTextCoroutine(pages));
+        return StartCoroutine(ShowTextCoroutine(pages));
     }
 
     private IEnumerator ShowTextCoroutine(string[] pages)

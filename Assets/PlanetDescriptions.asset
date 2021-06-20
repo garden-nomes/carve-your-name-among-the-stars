@@ -13,13 +13,153 @@ MonoBehaviour:
   m_Name: PlanetDescriptions
   m_EditorClassIdentifier: 
   gardenWorldEvents:
-  - The people of this planet breath a different atmosphere. They are happy. You
-    imagine what it must be like to walk among them.
+  - A garden world. A famous poet lives here, a hermit. You give them a wide berth.
+    The planet is beautiful.
+  - 'A lucious garden world, covered in rainforests. The people of this world have
+    three eyes.
+
+
+
+    Their eyes remain closed from the time they are born until
+    the day of their death, when they are permitted to open them and observe their
+    first and final sunset.'
+  - 'A garden world with spectacularly iridescent sunsets. The people are joyful
+    and full of laughter.
+
+
+
+    They invite you to feast and play music, and you
+    smile and laugh with them, but the gravity of this planet is stronger than is
+    comfortable for you, and eventually you must move on.'
+  - A garden world. Violent storms play across its surface. The people here have
+    seen many disasters. You wonder why they don't leave, and they tell you that
+    this is their home.
+  - A garden world. Where the ocean meets the land, waves beat violently against
+    rocky cliffs. You stay for a time, losing yourself in the motion of the planet.
+  - A thriving garden world, covered in bright multicolored foliage. Strange, irregular
+    structures dot the surface, perhaps the remains of a long forgotten civilization.
+  - A garden world populated by very busy people. They are friendly, but your body
+    is different from their bodies and that makes them uncomfortable. You don't stay
+    long.
+  - A garden world. Metallic scars vein the surface, like some kind of giant circuitry.
+    As you try to enter the atmosphere, a mysterious force pushes you away.
+  - A garden world, populated by jellyfish people. They drift calmly through the
+    seas. They live long lives, and care little for the surface world. It's hard
+    to say, but they seem content.
+  - A garden world. The ground is always muddy, even in the arid regions. You spy
+    a bone lodged in the muck.
+  - A garden world. Tall, carnivorous trees drift slowly across the continents.
+  - A garden world. As far as you can tell, only goats live here. The goats look
+    very happy.
+  - A garden world. The sky is a gentle pink, dotted with puffball clouds. The people
+    here have large smiles across their faces. Their teeth are filed to points. You
+    do not stay long.
+  - A garden world. The people of this planet breathe a different atmosphere. They
+    are happy. You imagine what it must be like to walk among them unmasked.
   rockyPlanetEvents:
-  - 'Big lump of rock in space.
+  - A lifeless chunk of rock without atmosphere, hurtling through the void. There
+    is nothing here.
+  - 'A rocky world without atmosphere. The pitted formations on the surface cast
+    strange shadows.
+
+
+    Large symbols are carved into the surface in a language
+    few can understand:
 
 
 
-    What more could you want?'
+    "Hail, Wanderer."'
+  - 'A rocky world without atmosphere or notable features, except for another message
+    carved into the into the surface:
+
+
+
+    "I leave this message in the hopes that
+    one like me might find it. If you can read this, you must be a Wanderer too."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "I do not know how long I have wandered. People and places come
+    and go. Never have I met anyone else like me. Like us, I suppose."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "I have seen so many strange and wonderful things. People both
+    delightful and terrible. Planets, beautiful and hellish. There are monsters in
+    this galaxy, but also there is hope."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "Perhaps no one will find these writings. Maybe everyone who
+    can understand them is gone. But I have to believe.
+
+
+    Otherwise, I am alone."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "I made an error, and nearly ran out of fuel.
+
+
+    It is easy
+    to forget how closely death tails us, out here in the darkness. Fuel is life.
+    Never forget that."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "Sometimes I find a planet and wish that I could belong there."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "Where am I from? I do not remember anymore."'
+  - 'A rocky world without atmosphere. Strange symbols are carved into the surface,
+    but it''s not a language you recognize. It doesn''t look like writing at all,
+    in fact, but a drawing of a face.
+
+
+
+    Its stony eyes gaze out into the void.
+    They remind you of your own.'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "I wish I could know you, Wanderer. We are both alike, both alone.
+    I hope my words make you feel a little less so. By imagining you reading this,
+    I feel less alone.
+
+
+
+    Know that you are cherished, Wanderer."'
+  - 'A rocky world without atmosphere. Another message is carved into the into the
+    surface:
+
+
+
+    "I am sorry. I have failed. My fuel reserves are gone, and I
+    do not think I will make it to my next destination. Please, dear Wanderer, if
+    you find this: take my chisel. Make it your voice as I have before you.
+
+
+
+    I
+    do not know what we are looking for. I do not know if we can ever find it.
+
+
+    All
+    you can do in the meantime is carve your name among the stars."'
   gasGiantEvents:
   - Swirly clouds pretty
