@@ -33,7 +33,16 @@ public class PlanetIndicator : MonoBehaviour
         float distance = (spaceship.transform.position - planet.transform.position).magnitude;
         distanceLabel.text = $"{distance.ToString("F1")} KM";
 
-        nameLabel.text = planet.planetName.ToUpper();
+        if (planet.isScanned)
+        {
+            nameLabel.text = $"{planet.planetName.ToUpper()} (SCANNED)";
+            nameLabel.color = typeLabel.color;
+        }
+        else
+        {
+            nameLabel.text = planet.planetName.ToUpper();
+            nameLabel.color = Color.white;
+        }
 
         switch (planet.planetClass)
         {

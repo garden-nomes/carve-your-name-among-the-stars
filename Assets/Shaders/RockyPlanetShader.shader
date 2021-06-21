@@ -86,6 +86,8 @@ Shader "Planets/Rocky"
 
                 // add noise
                 lighting += noise(objectSpacePos * _NoiseScale) * _NoiseDepth;
+                lighting += noise(objectSpacePos * _NoiseScale * 2.0) * 0.5 * _NoiseDepth;
+                lighting += noise(objectSpacePos * _NoiseScale * 4.0) * 0.25 * _NoiseDepth;
 
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);
