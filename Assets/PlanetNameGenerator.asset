@@ -12,852 +12,174 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc2607de6ce7473790d87f27cb2ba4f, type: 3}
   m_Name: PlanetNameGenerator
   m_EditorClassIdentifier: 
-  corpus: 'Aakheperkare
+  corpus: 'Astraeus
 
-    Addaya
+    Atlas
 
-    Ahhotpe
+    Coeus
 
-    Ahmes
+    Cronos
 
-    Ahmose
+    Iapetus
 
-    Ahmose-saneit
+    Hyperion
 
-    Ahmose-sipari
+    Helios
 
-    Akencheres
+    Prometheus
 
-    Akunosh
+    Achelous
 
-    Amenakht
+    Adonis
 
-    Amenakhte
+    Anteros
 
-    Amenemhat
+    Apollo
 
-    Amenemheb
+    Ares
 
-    Amenemopet
+    Asclepius
 
-    Amenhirkopshef
+    Asopus
 
-    Amenhirwenemef
+    Attis
 
-    Amenhotpe
+    Charon
 
-    Amenmesse
+    Dionysus
 
-    Amenmose
+    Enipeus
 
-    Amennestawy
+    Enyalios
 
-    Amenope
+    Epahus
 
-    Amenophis
+    Erebus
 
-    Amenwahsu
+    Erechteus
 
-    Ameny
+    Eros
 
-    Amosis-ankh
+    Evenus
 
-    Amoy
+    Hades
 
-    Amunemhat
+    Helios
 
-    Amunherpanesha
+    Hephaestus
 
-    Amunhotpe
+    Hermaphroditus
 
-    Anen
+    Hermes
 
-    Ankh-Psamtek
+    Hymen
 
-    Ankhef
+    Hypnus
 
-    Ankhefenamun
+    Iasion
 
-    Ankhefenkhons
+    Myrtilus
 
-    Ankhefenmut
+    Nereus
 
-    Ankhsheshonq
+    Palaemon
 
-    Ankhtify
+    Pan
 
-    Ankhtyfy
+    Phorcys
 
-    Ankhu
+    Poseidon
 
-    Ankhuemhesut
+    Priapus
 
-    Any
+    Proteus
 
-    Apophis
+    Triton
 
-    Baba
+    Zeus
 
-    Baenre
+    Phaeton
 
-    Bak
+    Idas
 
-    Bakenkhons
+    Silenus
 
-    Bakenkhonsu
+    Uranus
 
-    Bakenmut
+    Aphaia
 
-    Bakennefi
+    Aphrodite
 
-    Bakenptah
+    Arethusa
 
-    Baky
+    Artemis
 
-    Bata
+    Athene
 
-    Bay
+    Demeter
 
-    Bek
+    Dia
 
-    Bengay
+    Earth
 
-    Besenmut
+    Eos
 
-    Butehamun
+    Eris
 
-    Denger
+    Hecate
 
-    Deniuenkhons
+    Hera
 
-    Djadjaemankh
+    Hestia
 
-    Djau
+    Hygeia
 
-    Djedefhor
+    Ilithyia
 
-    Djedhor
+    Leucothea
 
-    Djedhoriufankh
+    Metis
 
-    Djedi
+    Mnemosyne
 
-    Djedkhonsiufankh
+    Nemesis
 
-    Djedkhonsuefankh
+    Nike
 
-    Djedptahefankh
+    Perse
 
-    Djedptahiufankh
+    Persephone
 
-    Djehutmose
+    Psyche
 
-    Djehuty
+    Rhodos
 
-    Djehutymose
+    Selene
 
-    Djenutymes
+    Tyche
 
-    Djeserka
+    Leto
 
-    Djeserkare
+    Rhea
 
-    Djeserkheprure
+    Tethys
 
-    Djesersukhons
+    Themis
 
-    Djethutmose
+    Calliope
 
-    Djhutmose
+    Clio
 
-    Genubath
+    Erato
 
-    Gua
+    Euterpe
 
-    Haankhef
+    Melpomene
 
-    Hapimen
+    Polyhymnia
 
-    Hapu
+    Terpsichore
 
-    Hapuseneb
+    Thalia
 
-    Hapymen
-
-    Haremakhet
-
-    Haremsat
-
-    Harkhebi
-
-    Harkhuf
-
-    Harmhabi
-
-    Harnakhte
-
-    Harsiese
-
-    Hay
-
-    Hemaka
-
-    Henenu
-
-    Henuka
-
-    Heqaemeheh
-
-    Heqaib
-
-    Herenamenpenaef
-
-    Herihor
-
-    Hesire
-
-    Hor
-
-    Horapollo
-
-    Hordedef
-
-    Horemheb
-
-    Hori
-
-    Hornedjitef
-
-    Horpais
-
-    Horwebbefer
-
-    Hrihor
-
-    Hunefer
-
-    Huy
-
-    Huya
-
-    Iawy
-
-    Ibana
-
-    Ibe
-
-    Idy
-
-    Ikeni
-
-    Ikui
-
-    Imhotep
-
-    Inarus
-
-    Inebni
-
-    Ineni
-
-    Inyotef
-
-    Ipi
-
-    Ipuwer
-
-    Ipuy
-
-    Ipy
-
-    Ishpi
-
-    Iu-Amun
-
-    Iufankh
-
-    Iufenamun
-
-    Iunmin
-
-    Iuseneb
-
-    Iuwlot
-
-    Iyerniutef
-
-    Iyimennuef
-
-    Iymeru
-
-    Jarha
-
-    Kadjadja
-
-    Kahma
-
-    Kaka
-
-    Kanakht
-
-    Karnefhere
-
-    Katenen
-
-    Kawab
-
-    Kay
-
-    Kemuny
-
-    Kenamun
-
-    Kenefer
-
-    Kerasher
-
-    Kha
-
-    Khaemhet
-
-    Khaemnetjeru
-
-    Khaemwaset
-
-    Khahor
-
-    Khakheperraseneb
-
-    Khay
-
-    Khensthoth
-
-    Kheruef
-
-    Khety
-
-    Khnemibre
-
-    Khnumhotep
-
-    Khnumhotpe
-
-    Khons
-
-    Khonsirdais
-
-    Khonskhu
-
-    Khonsuemwaset
-
-    Khufukhaf
-
-    Khui
-
-    Kuenre
-
-    Kysen
-
-    Maakha
-
-    Mahu
-
-    Mahuhy
-
-    Maiherpri
-
-    Manakhtuf
-
-    Manetho
-
-    Masaharta
-
-    May
-
-    Maya
-
-    Mehy
-
-    Meketre
-
-    Mekhu
-
-    Men
-
-    Menkheperraseneb
-
-    Menkheperre
-
-    Menmet-Ra
-
-    Menna
-
-    Mentuemhat
-
-    Mentuherkhepshef
-
-    Meremptor
-
-    Merenamun
-
-    Merenkhons
-
-    Merenptah
-
-    Mereruka
-
-    Merka
-
-    Mernebptah
-
-    Mery
-
-    Meryamun
-
-    Meryatum
-
-    Meryawy
-
-    Merymose
-
-    Meryptah
-
-    Meryrahashtef
-
-    Meryre
-
-    Mes
-
-    Min
-
-    Minkhat
-
-    Minmose
-
-    Minnakht
-
-    Mokhtar
-
-    Montjuemhat
-
-    Montjuhirkopshef
-
-    Montuemhet
-
-    Mose
-
-    Naga-ed-der
-
-    Nakhthorheb
-
-    Nakhtimenwast
-
-    Nakhtmin
-
-    Nakhtnebef
-
-    Naneferkeptah
-
-    Nebamun
-
-    Nebankh
-
-    Nebemakst
-
-    Nebhotep
-
-    Nebimes
-
-    Nebitka
-
-    Nebmaetre
-
-    Nebnefer
-
-    Nebnetjeru
-
-    Nebseni
-
-    Nebseny
-
-    Nebwennenef
-
-    Nechoutes
-
-    Neferhotep
-
-    Neferhotpe
-
-    Neferkheperuhersekheper
-
-    Nefermaet
-
-    Nefermenu
-
-    Neferrenpet
-
-    Neferti
-
-    Nehasy
-
-    Nehi
-
-    Nekau
-
-    Nekhwemmut
-
-    Nendjbaendjed
-
-    Nenedjebaendjed
-
-    Neneferkaptah
-
-    Nenkhefta
-
-    Nes
-
-    Nesamun
-
-    Neshi
-
-    Neshorpakhered
-
-    Neskhons
-
-    Nesmont
-
-    Nespaherenhat
-
-    Nespakashuty
-
-    Nespatytawy
-
-    Nespherenhat
-
-    Nessuimenopet
-
-    Nestanebetasheru
-
-    Nestefnut
-
-    Netihur
-
-    Nigmed
-
-    Nimlot
-
-    Niumateped
-
-    Pa-Siamun
-
-    Pabasa
-
-    Pabernefy
-
-    Padiamenet
-
-    Padiamenipet
-
-    Padiamun
-
-    Padineith
-
-    Paheripedjet
-
-    Pairy
-
-    Pait
-
-    Pakharu
-
-    Pakhneter
-
-    Pamont
-
-    Pamose
-
-    Pamu
-
-    Panas
-
-    Paneb
-
-    Paneferher
-
-    Panehesy
-
-    Paperpa
-
-    Paramesse
-
-    Parennefer
-
-    Pasebakhaenniut
-
-    Pasekhonsu
-
-    Paser
-
-    Pashedbast
-
-    Pashedu
-
-    Pasherdjehuty
-
-    Pawiaeadja
-
-    Paynedjem
-
-    Payneferher
-
-    Pediamun
-
-    Pediese
-
-    Pedihor
-
-    Penamun
-
-    Penbuy
-
-    Penmaat
-
-    Pennestawy
-
-    Pentaweret
-
-    Pentu
-
-    Pepynakhte
-
-    Peraha
-
-    Pinhasy
-
-    Pinotmou
-
-    Prahotpe
-
-    Pramessu
-
-    Preherwenemef
-
-    Prehirwennef
-
-    Prepayit
-
-    Psamtek
-
-    Psenamy
-
-    Psenmin
-
-    Ptahhemakhet
-
-    Ptahhemhat-Ty
-
-    Ptahhotep
-
-    Ptahhudjankhef
-
-    Ptahmose
-
-    Ptahshepses
-
-    Qenymin
-
-    Rahotep
-
-    Rahotpe
-
-    Raia
-
-    Ramessenakhte
-
-    Ramessu
-
-    Rekhmire
-
-    Reuser
-
-    Rewer
-
-    Roma-Roy
-
-    Rudamun
-
-    Sabef
-
-    Sabni
-
-    Salatis
-
-    Samut
-
-    Sanehet
-
-    Sasobek
-
-    Sawesit
-
-    Scepter
-
-    Sekhemkare
-
-    Sekhmire
-
-    Seneb
-
-    Senebtyfy
-
-    Senemut
-
-    Senmen
-
-    Sennedjem
-
-    Sennefer
-
-    Sennufer
-
-    Senui
-
-    Senwosret
-
-    Serapion
-
-    Sese
-
-    Setau
-
-    Setep
-
-    Sethe
-
-    Sethherwenemef
-
-    Sethhirkopshef
-
-    Sethnakhte
-
-    Sethnakte
-
-    Sethy
-
-    Setne
-
-    Setymerenptah
-
-    Shedsunefertum
-
-    Shemay
-
-    Shepenwepet
-
-    Si-Mut
-
-    Siamun
-
-    Siese
-
-    Sinuhe
-
-    Sipair
-
-    Sneferu
-
-    Somtutefnakhte
-
-    Surero
-
-    Suty
-
-    Sutymose
-
-    Takairnayu
-
-    Takany
-
-    Tasetmerydjehuty
-
-    Tayenimu
-
-    Tefibi
-
-    Tenermentu
-
-    Teti-en
-
-    Tetisheri
-
-    Tjaenhebyu
-
-    Tjahapimu
-
-    Tjaroy
-
-    Tjauemdi
-
-    Tjenna
-
-    Tjety
-
-    To
-
-    Tui
-
-    Tutu
-
-    Tymisba
-
-    Udjahorresne
-
-    Udjahorresneith
-
-    Uni
-
-    Userhet
-
-    Usermontju
-
-    Wadjmose
-
-    Wahibre-Teni
-
-    Wahka
-
-    Webaoner
-
-    Webensenu
-
-    Wedjakhons
-
-    Wenamun
-
-    Wendjabaendjed
-
-    Wendjebaendjed
-
-    Weni
-
-    Wennefer
-
-    Wennufer
-
-    Wepmose
-
-    Wepwawetmose
-
-    Werdiamenniut
-
-    Werirenptah
-
-    Yanhamu
-
-    Yey
-
-    Yii
-
-    Yuya
-
-    Zazamoukh'
+    Urania'
