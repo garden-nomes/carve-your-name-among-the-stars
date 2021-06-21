@@ -57,10 +57,15 @@ MonoBehaviour:
   - A garden world. The people of this planet breathe a different atmosphere. They
     are happy. You imagine what it must be like to walk among them unmasked.
   rockyPlanetEvents:
-  - A lifeless chunk of rock without atmosphere, hurtling through the void. There
-    is nothing here.
+  - 'A lifeless chunk of rock without atmosphere, hurtling through the void.
+
+
+
+    There
+    is nothing here.'
   - 'A rocky world without atmosphere. The pitted formations on the surface cast
     strange shadows.
+
 
 
     Large symbols are carved into the surface in a language
@@ -82,15 +87,23 @@ MonoBehaviour:
 
 
     "I do not know how long I have wandered. People and places come
-    and go. Never have I met anyone else like me. Like us, I suppose."'
+    and go. Never have I met anyone else like me.
+
+
+
+    Like us, I suppose."'
   - 'A rocky world without atmosphere. Another message is carved into the into the
     surface:
 
 
 
     "I have seen so many strange and wonderful things. People both
-    delightful and terrible. Planets, beautiful and hellish. There are monsters in
-    this galaxy, but also there is hope."'
+    delightful and terrible. Planets, beautiful and hellish.
+
+
+
+    There are monsters
+    in this galaxy, but also there is hope."'
   - 'A rocky world without atmosphere. Another message is carved into the into the
     surface:
 
@@ -100,6 +113,7 @@ MonoBehaviour:
     can understand them is gone. But I have to believe.
 
 
+
     Otherwise, I am alone."'
   - 'A rocky world without atmosphere. Another message is carved into the into the
     surface:
@@ -107,6 +121,7 @@ MonoBehaviour:
 
 
     "I made an error, and nearly ran out of fuel.
+
 
 
     It is easy
@@ -125,33 +140,41 @@ MonoBehaviour:
 
     "Where am I from? I do not remember anymore."'
   - 'A rocky world without atmosphere. Strange symbols are carved into the surface,
-    but it''s not a language you recognize. It doesn''t look like writing at all,
-    in fact, but a drawing of a face.
+    but it''s not a language you recognize.
 
 
 
-    Its stony eyes gaze out into the void.
-    They remind you of your own.'
+    It doesn''t look like writing
+    at all, in fact, but a drawing of a face.
+
+
+
+    Its stony eyes gaze out into
+    the void. They remind you of your own.'
   - 'A rocky world without atmosphere. Another message is carved into the into the
     surface:
 
 
 
     "I wish I could know you, Wanderer. We are both alike, both alone.
-    I hope my words make you feel a little less so. By imagining you reading this,
-    I feel less alone.
+    I hope my words make you feel a little less so.
 
 
 
-    Know that you are cherished, Wanderer."'
+    Know that you are cherished,
+    Wanderer."'
   - 'A rocky world without atmosphere. Another message is carved into the into the
     surface:
 
 
 
     "I am sorry. I have failed. My fuel reserves are gone, and I
-    do not think I will make it to my next destination. Please, dear Wanderer, if
-    you find this: take my chisel. Make it your voice as I have before you.
+    do not think I will make it to my next destination.
+
+
+
+    Please, dear Wanderer,
+    if you find this: take my chisel. Make it your voice as I have before you.
 
 
 
@@ -159,11 +182,13 @@ MonoBehaviour:
     do not know what we are looking for. I do not know if we can ever find it.
 
 
-    All
-    you can do in the meantime is carve your name among the stars."'
+
+    In
+    the meantime, all you can do is carve your name among the stars."'
   gasGiantEvents:
   - 'A gas giant. Clouds twist a swirl in mesmerizing patterns below.
 
 
-    The gasses
-    of this world can be used to fuel your ship.'
+
+    The
+    gasses of this world can be used to fuel your ship.'
