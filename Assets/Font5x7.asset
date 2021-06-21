@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f534219d60c874ea8a3811b622d2f9cf, type: 3}
+  m_Name: Font5x7
+  m_EditorClassIdentifier: 
+  texture: {fileID: 2800000, guid: 69e31473c7d55489ebd56388f66a8743, type: 3}
+  ordering: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,'"?:[]()
+  gridWidth: 5
+  gridHeight: 7
+  spaceWidth: 5
+  letterSpacing: 1
+  lineSpacing: 1
