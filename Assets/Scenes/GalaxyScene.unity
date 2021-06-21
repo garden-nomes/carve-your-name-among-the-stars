@@ -462,6 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 275210702}
   - component: {fileID: 275210703}
+  - component: {fileID: 275210704}
   m_Layer: 5
   m_Name: TextBox
   m_TagString: Untagged
@@ -507,6 +508,20 @@ MonoBehaviour:
   continueIcon: {fileID: 1224046403}
   spaceship: {fileID: 138439368}
   minimumTextDelay: 0.5
+--- !u!114 &275210704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275210701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1 &376467513
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  _text: 
+  _text: T
   _props:
     _font: {fileID: 11400000, guid: fa2f39b042eb1426c9bbf882dc89fb95, type: 2}
     _scale: 1
