@@ -76,8 +76,20 @@ public class PlanetScanner : MonoBehaviour
 
     private void ShowDescription(PlanetInfo planet)
     {
-        string evt = planetDescriptions.GetEncounter(planet.planetClass);
-        textController.ShowText(evt.ToUpper());
+        StartCoroutine(ShowDescriptionCoroutine(planet));
+    }
+
+    private IEnumerator ShowDescriptionCoroutine(PlanetInfo planet)
+    {
+        // show encounter text
+        string encounter = planetDescriptions.GetEncounter(planet.planetClass);
+        yield return textController.ShowText(encounter.ToUpper());
+
+        // if gas giant, trigger refueling sequence
+        if (planet.planetClass == PlanetClass.GasGiant)
+        {
+            yield return GetComponent<FuelTank>().RefuelCoroutine();
+        }
     }
 
 #if UNITY_EDITOR

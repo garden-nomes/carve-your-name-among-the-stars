@@ -8,6 +8,7 @@ public class SpaceshipController : MonoBehaviour
     private Vector3 velocity;
     public Vector3 Velocity => velocity;
     public bool disableThrottle = false;
+    public FuelTank fuelTank;
 
     public float maxRotationalSpeed = 90f;
     public float timeToMaxRotationalSpeed = 1f;
@@ -67,8 +68,12 @@ public class SpaceshipController : MonoBehaviour
     {
         // map forwards/backwards buttons to a 1-dimensional axis
         float axis = 0f;
-        if (!disableThrottle && Input.GetKey(KeyCode.Z)) axis += 1f;
-        if (!disableThrottle && Input.GetKey(KeyCode.X)) axis -= 1f;
+
+        if (!(disableThrottle || fuelTank.IsEmpty))
+        {
+            if (Input.GetKey(KeyCode.Z)) axis += 1f;
+            if (Input.GetKey(KeyCode.X)) axis -= 1f;
+        }
 
         if (axis != 0)
         {

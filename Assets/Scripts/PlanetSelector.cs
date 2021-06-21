@@ -34,11 +34,17 @@ public class PlanetSelector : MonoBehaviour
             }
         }
 
-        var toBestPlanet = bestPlanet.transform.position - transform.position;
-        if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
+        if (bestPlanet == null)
+        {
             indicator.planet = null;
+        }
         else
-            indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
-
+        {
+            var toBestPlanet = bestPlanet.transform.position - transform.position;
+            if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
+                indicator.planet = null;
+            else
+                indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
+        }
     }
 }

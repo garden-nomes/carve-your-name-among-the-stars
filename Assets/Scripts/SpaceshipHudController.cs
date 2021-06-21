@@ -5,6 +5,9 @@ using UnityEngine;
 public class SpaceshipHudController : MonoBehaviour
 {
     public SpaceshipController spaceshipController;
+    public FuelTank fuelTank;
+
+    public float lowFuelWarning = 200f; // when to turn on the low fuel warning
 
     public Dial speedDial;
     public Dial fuelDial;
@@ -17,10 +20,10 @@ public class SpaceshipHudController : MonoBehaviour
         float speed = spaceshipController.Velocity.magnitude;
 
         speedDial.value = speed / spaceshipController.maxSpeed;
-        fuelDial.value = 1f;
+        fuelDial.value = fuelTank.fuel / 1000f;
 
         inMotionLight.SetActive(speed > 0f);
         fullStopLight.SetActive(speed == 0f);
-        fuelLight.SetActive(false);
+        fuelLight.SetActive(fuelTank.fuel <= lowFuelWarning);
     }
 }
