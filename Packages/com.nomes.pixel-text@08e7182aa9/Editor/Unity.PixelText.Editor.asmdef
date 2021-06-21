@@ -1,0 +1,19 @@
+{
+    "name": "Unity.PixelText.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.PixelText",
+        "UnityEditor.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

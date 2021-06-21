@@ -1,13 +1,12 @@
 {
   "dependencies": {
     "com.nomes.pixel-text": {
-      "version": "https://github.com/garden-nomes/unity-pixel-text.git",
+      "version": "file:com.nomes.pixel-text@08e7182aa9",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
       "dependencies": {
         "com.unity.ugui": "1.0.0"
-      },
-      "hash": "08e7182aa9d603c10c6ea5f27029841a6a494b92"
+      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
