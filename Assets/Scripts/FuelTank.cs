@@ -8,12 +8,11 @@ public class FuelTank : MonoBehaviour
     public float fuelDistance = 300f; // how far the spaceship can travel on a full tank
     public float refuelTime = 5f;
     public ScannerUI refuelingUI;
+    public bool isEmpty => fuel == 0f;
 
     public TextController textController;
     [TextArea] public string outOfFuelMessage = "";
     public float outOfFuelBeat = 1f;
-
-    public bool IsEmpty => fuel <= 0f;
 
     private SpaceshipController spaceshipController;
 
@@ -59,8 +58,8 @@ public class FuelTank : MonoBehaviour
 
     private IEnumerator OutOfFuelCoroutine()
     {
-        yield return new WaitForSeconds(1f);
-        yield return textController.ShowText(outOfFuelMessage.ToUpper());
-        GameManager.instance.EndGame();
+        yield return new WaitForSeconds(outOfFuelBeat);
+        yield return textController.ShowText(outOfFuelMessage);
+        GameManager.instance.EndGame(false);
     }
 }

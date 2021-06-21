@@ -5,35 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject theEnd;
+    public GameObject theEndUI;
+    public SpaceshipController spaceship;
 
-    // singleton pattern -- sue me
+    // singleton pattern, sue me
     private static GameManager _instance;
     public static GameManager instance => _instance;
     private void Awake()
     {
         if (_instance == null)
+        {
             _instance = this;
+        }
         else if (instance != this)
+        {
             Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        theEnd.SetActive(false);
+        theEndUI.SetActive(false);
     }
 
-    public void EndGame()
+    public void EndGame(bool canContinue)
     {
-        StartCoroutine(EndGameCoroutine());
+        StartCoroutine(EndGameCoroutine(canContinue));
     }
 
-    private IEnumerator EndGameCoroutine()
+    private IEnumerator EndGameCoroutine(bool canContinue)
     {
-        theEnd.SetActive(true);
+        spaceship.disableThrottle = true;
+        theEndUI.SetActive(true);
         yield return null;
         while (!Input.GetKeyUp(KeyCode.Z)) { yield return null; }
-        Restart();
+
+        if (canContinue)
+        {
+            spaceship.disableThrottle = false;
+            theEndUI.SetActive(false);
+        }
+        else
+        {
+            Restart();
+        }
     }
 
     private void Restart()

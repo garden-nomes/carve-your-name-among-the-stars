@@ -69,7 +69,7 @@ public class SpaceshipController : MonoBehaviour
         // map forwards/backwards buttons to a 1-dimensional axis
         float axis = 0f;
 
-        if (!(disableThrottle || fuelTank.IsEmpty))
+        if (!(disableThrottle || fuelTank.isEmpty))
         {
             if (Input.GetKey(KeyCode.Z)) axis += 1f;
             if (Input.GetKey(KeyCode.X)) axis -= 1f;

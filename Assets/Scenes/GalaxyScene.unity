@@ -408,7 +408,11 @@ MonoBehaviour:
   refuelTime: 5
   refuelingUI: {fileID: 1931826987}
   textController: {fileID: 275210703}
-  outOfFuelMessage: Out of fuel, you are cast adrift. Your future looks bleak.
+  outOfFuelMessage: 'Out of fuel, you are cast adrift.
+
+
+
+    Your future looks bleak.'
   outOfFuelBeat: 1
 --- !u!1 &156300446
 GameObject:
@@ -2792,7 +2796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d96e08f2617410db4bf06887cf3b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theEnd: {fileID: 156300446}
+  theEndUI: {fileID: 156300446}
+  spaceship: {fileID: 138439368}
 --- !u!4 &1936175372
 Transform:
   m_ObjectHideFlags: 0

@@ -23,7 +23,10 @@ public class TextController : MonoBehaviour
     public Coroutine ShowText(string text)
     {
         // split text into pages on a triple-newline
-        var pages = text.Split(new [] { "\n\n\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+        var pages = text
+            .ToUpper()
+            .Split(new [] { "\n\n\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+
         return StartCoroutine(ShowTextCoroutine(pages));
     }
 

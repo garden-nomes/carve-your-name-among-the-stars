@@ -14,12 +14,17 @@ public class PlanetScanner : MonoBehaviour
     public PlanetDescriptions planetDescriptions;
 
     private SpaceshipController spaceshipController;
+    private FuelTank fuelTank;
     private PlanetInfo planet;
     private bool wasMoving = true;
+    private PlanetEncounterSequencer encounterSequencer;
+    private bool wasMainStoryComplete = false;
 
     void Start()
     {
         spaceshipController = GetComponent<SpaceshipController>();
+        fuelTank = GetComponent<FuelTank>();
+        encounterSequencer = new PlanetEncounterSequencer(planetDescriptions);
     }
 
     void Update()
@@ -40,7 +45,7 @@ public class PlanetScanner : MonoBehaviour
                 }
             }
 
-            if (planet != null && !planet.isScanned)
+            if (planet != null && !planet.isScanned && !fuelTank.isEmpty)
             {
                 // show scanner UI
                 scannerUI.isVisible = true;
@@ -82,13 +87,20 @@ public class PlanetScanner : MonoBehaviour
     private IEnumerator ShowDescriptionCoroutine(PlanetInfo planet)
     {
         // show encounter text
-        string encounter = planetDescriptions.GetEncounter(planet.planetClass);
-        yield return textController.ShowText(encounter.ToUpper());
+        string encounter = encounterSequencer.Next(planet.planetClass);
+        yield return textController.ShowText(encounter);
 
         // if gas giant, trigger refueling sequence
         if (planet.planetClass == PlanetClass.GasGiant)
         {
             yield return GetComponent<FuelTank>().RefuelCoroutine();
+        }
+
+        // if we just completed the main story, show the "end" title
+        if (encounterSequencer.isMainStoryComplete && !wasMainStoryComplete)
+        {
+            wasMainStoryComplete = true;
+            GameManager.instance.EndGame(true);
         }
     }
 
@@ -109,7 +121,7 @@ public class PlanetScanner : MonoBehaviour
     {
         foreach (var encounter in encounters)
         {
-            yield return textController.ShowText(encounter.ToUpper());
+            yield return textController.ShowText(encounter);
         }
     }
 #endif
