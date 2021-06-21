@@ -3,14 +3,28 @@ using UnityEngine;
 
 public class PlanetIndicator : MonoBehaviour
 {
-    public PlanetInfo planet;
+    public AudioClip tick;
     public GameObject spaceship;
-
     public PixelText nameLabel;
     public PixelText distanceLabel;
     public PixelText typeLabel;
 
     private RectTransform rectTransform;
+
+    private PlanetInfo _planet;
+    public PlanetInfo planet
+    {
+        get => _planet;
+        set
+        {
+            if (value != null && value != _planet)
+            {
+                AudioSource.PlayClipAtPoint(tick, Camera.main.transform.position);
+            }
+
+            _planet = value;
+        }
+    }
 
     private void Start()
     {
@@ -19,30 +33,30 @@ public class PlanetIndicator : MonoBehaviour
 
     private void Update()
     {
-        if (planet == null)
+        if (_planet == null)
         {
             // move offscreen
             rectTransform.anchoredPosition = new Vector2(0f, -50f);
             return;
         }
 
-        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(planet.transform.position);
+        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(_planet.transform.position);
 
-        float distance = (spaceship.transform.position - planet.transform.position).magnitude;
+        float distance = (spaceship.transform.position - _planet.transform.position).magnitude;
         distanceLabel.text = $"{distance.ToString("F1")} KM";
 
-        if (planet.isScanned)
+        if (_planet.isScanned)
         {
-            nameLabel.text = $"{planet.planetName.ToUpper()} (SCANNED)";
+            nameLabel.text = $"{_planet.planetName.ToUpper()} (SCANNED)";
             nameLabel.color = typeLabel.color;
         }
         else
         {
-            nameLabel.text = planet.planetName.ToUpper();
+            nameLabel.text = _planet.planetName.ToUpper();
             nameLabel.color = Color.white;
         }
 
-        switch (planet.planetClass)
+        switch (_planet.planetClass)
         {
             case PlanetClass.GardenWorld:
                 typeLabel.text = "GARDEN WORLD";

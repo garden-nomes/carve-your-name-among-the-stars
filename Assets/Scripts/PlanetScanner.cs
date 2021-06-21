@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpaceshipController))]
 public class PlanetScanner : MonoBehaviour
 {
+    public AudioClip scanSound;
+    public float scanSoundLoop;
     public System.Action<PlanetInfo> onComplete;
     public string planetTag = "Planet";
     public float scanRadius = 5f;
@@ -20,6 +22,7 @@ public class PlanetScanner : MonoBehaviour
     private bool wasMoving = true;
     private PlanetEncounterSequencer encounterSequencer;
     private bool wasMainStoryComplete = false;
+    private float scanSoundTimer = 0f;
 
     void Start()
     {
@@ -55,6 +58,14 @@ public class PlanetScanner : MonoBehaviour
             !planet.isScanned &&
             !fuelTank.isEmpty)
         {
+            // play noise at regular intervals
+            scanSoundTimer -= Time.deltaTime;
+            if (scanSoundTimer <= 0f)
+            {
+                AudioSource.PlayClipAtPoint(scanSound, transform.position);
+                scanSoundTimer = scanSoundLoop;
+            }
+
             // show scanner UI
             scannerUI.isVisible = true;
 

@@ -15,6 +15,9 @@ public class SpaceshipController : MonoBehaviour
     public float timeToStopRotating = 0.25f;
     private Vector2 rotationalVelocity;
 
+    private bool _isAccelerating;
+    public bool isAccelerating => _isAccelerating;
+
     private new Rigidbody rigidbody;
 
     private void Start() { }
@@ -75,7 +78,9 @@ public class SpaceshipController : MonoBehaviour
             if (Input.GetKey(KeyCode.X)) axis -= 1f;
         }
 
-        if (axis != 0)
+        _isAccelerating = axis != 0f;
+
+        if (_isAccelerating)
         {
             // accelerate ship
             float velocityDelta = (maxSpeed / timeToMaxSpeed) * Time.deltaTime * axis;

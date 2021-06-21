@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpaceshipController))]
 public class FuelTank : MonoBehaviour
 {
+    public AudioClip refuelingSound;
+    public float refuelingSoundLoop = 0.5f;
+
     public float fuel = 1000f;
     public float fuelDistance = 300f; // how far the spaceship can travel on a full tank
     public float refuelTime = 5f;
@@ -44,8 +47,17 @@ public class FuelTank : MonoBehaviour
 
         float startingFuel = fuel;
 
+        float soundTimer = 0f;
+
         while (fuel < 1000f)
         {
+            soundTimer -= Time.deltaTime;
+            if (soundTimer <= 0f)
+            {
+                AudioSource.PlayClipAtPoint(refuelingSound, transform.position);
+                soundTimer = refuelingSoundLoop;
+            }
+
             fuel += 1000f * Time.deltaTime / refuelTime;
             refuelingUI.progress = (fuel - startingFuel) / (1000f - startingFuel);
             yield return null;

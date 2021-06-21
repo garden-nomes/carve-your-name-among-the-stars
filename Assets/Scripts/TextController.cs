@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class TextController : MonoBehaviour
 {
+    public AudioClip openSound;
+    public AudioClip continueSound;
+    public AudioClip closeSound;
+
     public PixelText text;
     public GameObject continueIcon;
     public SpaceshipController spaceship;
@@ -35,6 +39,8 @@ public class TextController : MonoBehaviour
         rectTransform.anchoredPosition = position;
         spaceship.disableThrottle = true;
 
+        AudioSource.PlayClipAtPoint(openSound, Camera.main.transform.position);
+
         foreach (var page in pages)
         {
             text.text = page;
@@ -46,7 +52,14 @@ public class TextController : MonoBehaviour
             {
                 yield return null;
             }
+
+            if (page != pages[pages.Length - 1])
+            {
+                AudioSource.PlayClipAtPoint(continueSound, Camera.main.transform.position);
+            }
         }
+
+        AudioSource.PlayClipAtPoint(closeSound, Camera.main.transform.position);
 
         rectTransform.anchoredPosition = new Vector2(0f, -200f);
         spaceship.disableThrottle = false;
