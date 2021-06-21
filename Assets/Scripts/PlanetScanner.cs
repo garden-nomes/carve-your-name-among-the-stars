@@ -9,6 +9,7 @@ public class PlanetScanner : MonoBehaviour
     public string planetTag = "Planet";
     public float scanRadius = 5f;
     public float scanTime = 3f;
+    public OffscreenPointer planetPointer;
     public ScannerUI scannerUI;
     public TextController textController;
     public PlanetDescriptions planetDescriptions;
@@ -29,53 +30,53 @@ public class PlanetScanner : MonoBehaviour
 
     void Update()
     {
-        if (spaceshipController.Velocity.sqrMagnitude == 0f)
+        // check for planets in scan radius
+        planet = null;
+        var colliders = Physics.OverlapSphere(transform.position, scanRadius);
+        foreach (var collider in colliders)
         {
-            if (wasMoving)
-            {
-                // on stop
-                planet = null;
-                var colliders = Physics.OverlapSphere(transform.position, scanRadius);
+            // NOTE: we don't expect to have more than one planet in the scan radius given how planets are spaced
+            planet = collider.GetComponent<PlanetInfo>();
+            if (planet != null) break;
+        }
 
-                foreach (var collider in colliders)
+        // show arrow towards planet
+        planetPointer.target = planet == null ? null : planet.transform;
+
+        // check if planet is onscreen
+        bool isPlanetOnscreen =
+            planet != null &&
+            new Rect(Vector2.zero, Vector2.one).Contains(Camera.main.WorldToViewportPoint(planet.transform.position));
+
+        // scan if spaceship isn't moving
+        if (spaceshipController.Velocity.sqrMagnitude == 0f &&
+            planet != null &&
+            isPlanetOnscreen &&
+            !planet.isScanned &&
+            !fuelTank.isEmpty)
+        {
+            // show scanner UI
+            scannerUI.isVisible = true;
+
+            // use progress bar as timer
+            if (scannerUI.progress < 1f)
+            {
+                scannerUI.progress += Time.deltaTime / scanTime;
+
+                if (scannerUI.progress >= 1f)
                 {
-                    // NOTE: we don't expect to have more than one planet in the scan radius
-                    planet = collider.GetComponent<PlanetInfo>();
-                    if (planet != null) break;
+                    // scan complete
+                    onComplete?.Invoke(planet);
+                    ShowDescription(planet);
+                    planet.isScanned = true;
+                    scannerUI.progress = 1f;
                 }
-            }
-
-            if (planet != null && !planet.isScanned && !fuelTank.isEmpty)
-            {
-                // show scanner UI
-                scannerUI.isVisible = true;
-
-                // use progress bar as timer
-                if (scannerUI.progress < 1f)
-                {
-                    scannerUI.progress += Time.deltaTime / scanTime;
-
-                    if (scannerUI.progress >= 1f)
-                    {
-                        // scan complete
-                        onComplete?.Invoke(planet);
-                        ShowDescription(planet);
-                        planet.isScanned = true;
-                        scannerUI.progress = 1f;
-                    }
-                }
-            }
-            else
-            {
-                scannerUI.isVisible = false;
-                scannerUI.progress = 0f;
             }
         }
         else
         {
             scannerUI.isVisible = false;
             scannerUI.progress = 0f;
-            wasMoving = true;
         }
     }
 
