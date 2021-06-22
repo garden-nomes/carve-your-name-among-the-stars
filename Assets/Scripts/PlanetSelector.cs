@@ -41,10 +41,27 @@ public class PlanetSelector : MonoBehaviour
         else
         {
             var toBestPlanet = bestPlanet.transform.position - transform.position;
+
             if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
+            {
                 indicator.planet = null;
+            }
             else
-                indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
+            {
+                bool isBehindOtherPlanet = Physics.Raycast(
+                    transform.position,
+                    toBestPlanet.normalized,
+                    toBestPlanet.magnitude - 1f);
+
+                if (isBehindOtherPlanet)
+                {
+                    indicator.planet = null;
+                }
+                else
+                {
+                    indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
+                }
+            }
         }
     }
 }

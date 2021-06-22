@@ -24,6 +24,6 @@ public class SpaceshipHudController : MonoBehaviour
 
         inMotionLight.SetActive(speed > 0f);
         fullStopLight.SetActive(speed == 0f);
-        fuelLight.SetActive(fuelTank.fuel <= lowFuelWarning);
+        fuelLight.SetActive(fuelTank.fuel > 0f && fuelTank.fuel <= lowFuelWarning);
     }
 }
