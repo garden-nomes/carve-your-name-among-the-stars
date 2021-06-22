@@ -3384,7 +3384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a290e00d13245f1b83af8b4b9f5560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tick: {fileID: 8300000, guid: 733ffffcc1cfa4204a508ede8e26ec60, type: 3}
+  tick: {fileID: 8300000, guid: 444d69321fbc54dba9ba2d444792a40d, type: 3}
   spaceship: {fileID: 138439366}
   nameLabel: {fileID: 1119957104}
   distanceLabel: {fileID: 662681815}
