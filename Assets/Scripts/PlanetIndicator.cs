@@ -47,12 +47,12 @@ public class PlanetIndicator : MonoBehaviour
 
         if (_planet.isScanned)
         {
-            nameLabel.text = $"{_planet.planetName.ToUpper()} (SCANNED)";
+            nameLabel.text = $"{_planet.planetName} (SCANNED)";
             nameLabel.color = typeLabel.color;
         }
         else
         {
-            nameLabel.text = _planet.planetName.ToUpper();
+            nameLabel.text = _planet.planetName;
             nameLabel.color = Color.white;
         }
 

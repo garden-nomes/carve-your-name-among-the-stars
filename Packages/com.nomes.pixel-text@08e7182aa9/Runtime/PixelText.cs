@@ -86,17 +86,8 @@ namespace Unity.PixelText
 
             vh.Clear();
 
-            // align bounds to pixel grid
-            var bounds = rectTransform.rect;
-            bounds.min = new Vector2(
-                Mathf.Round(bounds.min.x * scale) / scale,
-                Mathf.Round(bounds.min.y * scale) / scale);
-            bounds.max = new Vector2(
-                Mathf.Round(bounds.max.x * scale) / scale,
-                Mathf.Round(bounds.max.y * scale) / scale);
-
             var glyphs = font.RenderText(
-                text, bounds, scale, horizontalAlign, verticalAlign, color);
+                text, rectTransform.rect, scale, horizontalAlign, verticalAlign, color);
 
             foreach (var glyph in glyphs)
             {
@@ -161,7 +152,6 @@ namespace Unity.PixelText
                 }
 
                 float height = font.GetHeight(text, (int) (rectTransform.rect.width * scale)) * scale;
-                Debug.Log($"Text height: {height}");
                 return height;
             }
         }

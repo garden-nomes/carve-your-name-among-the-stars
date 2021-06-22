@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f534219d60c874ea8a3811b622d2f9cf, type: 3}
-  m_Name: Font5x7
+  m_Name: Font3x6
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 69e31473c7d55489ebd56388f66a8743, type: 3}
-  ordering: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,'"?:[]()
-  gridWidth: 5
-  gridHeight: 7
-  spaceWidth: 5
+  texture: {fileID: 0}
+  ordering: "!\"#\xA2% '()[]*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz\u2190\u2192\u2191\u2193\u24CF\u24CD\u24B8"
+  gridWidth: 0
+  gridHeight: 0
+  spaceWidth: 4
   letterSpacing: 1
   lineSpacing: 1

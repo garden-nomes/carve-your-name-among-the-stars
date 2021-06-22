@@ -17,7 +17,7 @@ public class TextController : MonoBehaviour
     private RectTransform rectTransform;
     private Vector2 position;
 
-    void Start()
+    private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         position = rectTransform.anchoredPosition;
@@ -28,7 +28,6 @@ public class TextController : MonoBehaviour
     {
         // split text into pages on a triple-newline
         var pages = text
-            .ToUpper()
             .Split(new [] { "\n\n\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
         return StartCoroutine(ShowTextCoroutine(pages));
@@ -44,6 +43,17 @@ public class TextController : MonoBehaviour
         foreach (var page in pages)
         {
             text.text = page;
+
+            // HACK: compensate for an issue with the auto-height system causing text to go out of
+            // alignment with (this feels like an incredibly dumb way to handle it, but here we are)
+            if (text.preferredHeight % 2f != 0f)
+            {
+                rectTransform.anchoredPosition = position + new Vector2(0f, 0.5f);
+            }
+            else
+            {
+                rectTransform.anchoredPosition = position;
+            }
 
             // delay to make sure the player doesn't accidentally click through
             yield return new WaitForSeconds(minimumTextDelay);
