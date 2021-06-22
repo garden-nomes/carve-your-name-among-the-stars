@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public string titleSceneName;
     public SpaceshipController spaceship;
 
     // singleton pattern, sue me
@@ -24,6 +25,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(titleSceneName);
     }
 }

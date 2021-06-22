@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534219d60c874ea8a3811b622d2f9cf, type: 3}
   m_Name: Font3x6
   m_EditorClassIdentifier: 
-  texture: {fileID: 0}
-  ordering: "!\"#\xA2% '()[]*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz\u2190\u2192\u2191\u2193\u24CF\u24CD\u24B8"
-  gridWidth: 0
-  gridHeight: 0
+  texture: {fileID: 2800000, guid: ee793a484eabe4e4f89c81f099e35a9d, type: 3}
+  ordering: aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789!?,.;:'"/|\_()[]{}<>@#$&+-
+  gridWidth: 5
+  gridHeight: 8
   spaceWidth: 4
   letterSpacing: 1
   lineSpacing: 1

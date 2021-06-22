@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f534219d60c874ea8a3811b622d2f9cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 7493abb3078c147fc8fa7f2972a6c406, type: 3}
   m_Name: m3x6
   m_EditorClassIdentifier: 
-  texture: {fileID: 0}
-  ordering: 
-  gridWidth: 0
-  gridHeight: 0
+  texture: {fileID: 2800000, guid: 000a4af5557634411833c72fc3b361b5, type: 3}
+  gridWidth: 5
+  gridHeight: 5
+  descender: 0
+  gap: 1
   spaceWidth: 4
-  letterSpacing: 1
-  lineSpacing: 1
+  lineHeight: 6
+  ordering: "!\"#\xA2% '()[]*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz\u2190\u2192\u2191\u2193\u24CF\u24CD\u24B8"
