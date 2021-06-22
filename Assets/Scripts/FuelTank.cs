@@ -72,6 +72,6 @@ public class FuelTank : MonoBehaviour
     {
         yield return new WaitForSeconds(outOfFuelBeat);
         yield return textController.ShowText(outOfFuelMessage);
-        GameManager.instance.EndGame(false);
+        GameManager.instance.Restart();
     }
 }

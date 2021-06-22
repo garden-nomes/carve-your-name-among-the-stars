@@ -19,7 +19,7 @@ public class PlanetIndicator : MonoBehaviour
         {
             if (value != null && value != _planet)
             {
-                AudioSource.PlayClipAtPoint(tick, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(tick, Camera.main.transform.position, 0.2f);
             }
 
             _planet = value;

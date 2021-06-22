@@ -8,6 +8,7 @@ public class SpaceshipAudio : MonoBehaviour
     public float engineRumbleFade = 0.1f;
 
     private SpaceshipController spaceshipController;
+    private bool isRumbly = false;
 
     void Start()
     {
@@ -17,15 +18,17 @@ public class SpaceshipAudio : MonoBehaviour
 
     void Update()
     {
-        if (spaceshipController.isAccelerating && !engineRumble.isPlaying)
+        if (spaceshipController.isAccelerating && !isRumbly)
         {
             StopAllCoroutines();
             StartCoroutine(FadeInCoroutine(engineRumble, engineRumbleFade));
+            isRumbly = true;
         }
-        else if (!spaceshipController.isAccelerating && engineRumble.isPlaying)
+        else if (!spaceshipController.isAccelerating && isRumbly)
         {
             StopAllCoroutines();
             StartCoroutine(FadeOutCoroutine(engineRumble, engineRumbleFade));
+            isRumbly = false;
         }
     }
 

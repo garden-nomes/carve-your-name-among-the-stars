@@ -21,7 +21,6 @@ public class PlanetScanner : MonoBehaviour
     private PlanetInfo planet;
     private bool wasMoving = true;
     private PlanetEncounterSequencer encounterSequencer;
-    private bool wasMainStoryComplete = false;
     private float scanSoundTimer = 0f;
 
     void Start()
@@ -47,9 +46,13 @@ public class PlanetScanner : MonoBehaviour
         planetPointer.target = planet == null ? null : planet.transform;
 
         // check if planet is onscreen
-        bool isPlanetOnscreen =
-            planet != null &&
-            new Rect(Vector2.zero, Vector2.one).Contains(Camera.main.WorldToViewportPoint(planet.transform.position));
+        bool isPlanetOnscreen = false;
+        if (planet != null)
+        {
+            var viewportPosition = Camera.main.WorldToViewportPoint(planet.transform.position);
+            var viewportRect = new Rect(Vector2.zero, Vector2.one);
+            isPlanetOnscreen = viewportPosition.z > 0f && viewportRect.Contains(viewportPosition);
+        }
 
         // scan if spaceship isn't moving
         if (spaceshipController.Velocity.sqrMagnitude == 0f &&
@@ -106,13 +109,6 @@ public class PlanetScanner : MonoBehaviour
         if (planet.planetClass == PlanetClass.GasGiant)
         {
             yield return GetComponent<FuelTank>().RefuelCoroutine();
-        }
-
-        // if we just completed the main story, show the "end" title
-        if (encounterSequencer.isMainStoryComplete && !wasMainStoryComplete)
-        {
-            wasMainStoryComplete = true;
-            GameManager.instance.EndGame(true);
         }
     }
 
