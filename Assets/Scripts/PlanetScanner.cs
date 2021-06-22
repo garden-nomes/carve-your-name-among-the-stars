@@ -43,7 +43,7 @@ public class PlanetScanner : MonoBehaviour
         }
 
         // show arrow towards planet
-        planetPointer.target = planet == null ? null : planet.transform;
+        planetPointer.target = planet == null || planet.isScanned ? null : planet.transform;
 
         // check if planet is onscreen
         bool isPlanetOnscreen = false;
