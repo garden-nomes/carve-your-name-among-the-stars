@@ -17,6 +17,7 @@ Shader "Planets/Rocky"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_instancing
 
             #include "UnityCG.cginc"
             #include "./Shared.cginc"
@@ -32,6 +33,7 @@ Shader "Planets/Rocky"
             struct appdata
             {
                 float4 vertex : POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -40,11 +42,16 @@ Shader "Planets/Rocky"
                 float3 rayDir : TEXCOORD0;
                 float3 rayOrigin : TEXCOORD1;
                 float4 screenPos : TEXCOORD2;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
+
+                // allow Unity to do its GPU instancing magic
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_TRANSFER_INSTANCE_ID(v, o);
 
                 // billboard quad towards camera
                 float3 worldPos = billboard(v.vertex, 0.5);
@@ -63,6 +70,9 @@ Shader "Planets/Rocky"
 
             fixed4 frag(v2f i, out float outDepth : SV_Depth) : SV_Target
             {
+                // more Unity GPU instancing boilerplate
+                UNITY_SETUP_INSTANCE_ID(i);
+
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);
                 float rayHit = sphereIntersect(i.rayOrigin, rayDir, float4(0, 0, 0, 0.5));

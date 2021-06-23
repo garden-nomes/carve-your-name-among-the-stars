@@ -9,6 +9,6 @@ public class FixMeshBounds : MonoBehaviour
     {
         // because this uses raytracing magic, we need to manually adjust the mesh bounds to avoid
         // camera culling issues
-        GetComponent<MeshFilter>().mesh.bounds = new Bounds(Vector3.zero, Vector3.one);
+        GetComponent<MeshFilter>().sharedMesh.bounds = new Bounds(Vector3.zero, Vector3.one);
     }
 }
