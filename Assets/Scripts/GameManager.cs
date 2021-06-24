@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public string titleSceneName;
     public SpaceshipController spaceship;
+    public DitheredFadeEffect fadeEffect;
 
     // singleton pattern, sue me
     private static GameManager _instance;
@@ -25,6 +26,12 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        StartCoroutine(RestartCoroutine());
+    }
+
+    private IEnumerator RestartCoroutine()
+    {
+        yield return fadeEffect.FadeOut();
         SceneManager.LoadSceneAsync(titleSceneName);
     }
 }
