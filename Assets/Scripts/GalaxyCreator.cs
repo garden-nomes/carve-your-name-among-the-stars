@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class GalaxyCreator : MonoBehaviour
 {
-    public GameObject[] planetPrefabs;
+    [System.Serializable]
+    public class WeightedPlanetPrefabs
+    {
+        public GameObject prefab;
+        public float weight = 1f;
+    }
+
+    public WeightedPlanetPrefabs[] planetPrefabs;
     public float boundingRadius = 500f;
     public float radius = 50f;
     public int maxPerFrame = 100;
@@ -19,6 +26,8 @@ public class GalaxyCreator : MonoBehaviour
         var bounds = new Bounds(Vector3.zero, Vector3.one * boundingRadius);
         var sampler = new PoissonDiskSampler3D(bounds, radius);
 
+        float weightSum = planetPrefabs.Select(x => x.weight).Sum();
+
         float estimatedDensity = 0.666f;
         int estimate = (int) (bounds.size.x * bounds.size.y * bounds.size.z * estimatedDensity / (radius * radius * radius));
 
@@ -30,8 +39,18 @@ public class GalaxyCreator : MonoBehaviour
 
         foreach (var point in sampler.Samples(transform.position))
         {
-            var prefab = planetPrefabs[Random.Range(0, planetPrefabs.Length)];
-            Instantiate(prefab, point, Random.rotation, transform);
+            float choice = Random.value * weightSum;
+
+            foreach (var planetPrefab in planetPrefabs)
+            {
+                choice -= planetPrefab.weight;
+
+                if (choice < 0f)
+                {
+                    Instantiate(planetPrefab.prefab, point, Random.rotation, transform);
+                    break;
+                }
+            }
 
             total++;
             frameTotal++;
