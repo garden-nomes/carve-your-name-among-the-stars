@@ -3,6 +3,9 @@ Shader "Planets/Garden World"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _FadeMin ("Fade Start Distance", Float) = 100.0
+        _FadeMax ("Maximum Distance", Float) = 300.0
+        _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
         _DitheringSize ("Dither Size", Float) = 0.1
 
         [Header(Water)]
@@ -43,6 +46,9 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _FadeMin;
+            float _FadeMax;
+            sampler2D _FadeRamp;
             float _DitheringSize;
             float _WaterNoiseScale;
             float _WaterRimPower;
@@ -71,8 +77,13 @@ Shader "Planets/Garden World"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
+                // don't let planet get smaller than a pixel
+                float viewDepth = -UnityObjectToViewPos(v.vertex).z;
+                float pixelToWorldScale = viewDepth * unity_CameraProjection._m11 / _ScreenParams.x;
+                float minRadius = pixelToWorldScale * 0.75;
+
                 // billboard quad towards camera
-                float3 worldPos = billboard(v.vertex, 0.5);
+                float3 worldPos = billboard(v.vertex, max(0.5, minRadius));
 
                 // construct an object-space ray from the camera to this vertex
                 float3 worldRayDir = worldPos - _WorldSpaceCameraPos.xyz;
@@ -90,6 +101,10 @@ Shader "Planets/Garden World"
             {
                 // more Unity GPU instancing boilerplate
                 UNITY_SETUP_INSTANCE_ID(i);
+
+                // ignore pass if we're past the fade distance
+                float distance = length(i.rayOrigin);
+                clip(_FadeMin - distance);
 
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);
@@ -147,6 +162,9 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _FadeMin;
+            float _FadeMax;
+            sampler2D _FadeRamp;
             float _DitheringSize;
             float _LandmassScale;
             float _LandCoverage;
@@ -176,8 +194,13 @@ Shader "Planets/Garden World"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
+                // don't let planet get smaller than a pixel
+                float viewDepth = -UnityObjectToViewPos(v.vertex).z;
+                float pixelToWorldScale = viewDepth * unity_CameraProjection._m11 / _ScreenParams.x;
+                float minRadius = pixelToWorldScale * 0.75;
+
                 // billboard quad towards camera
-                float3 worldPos = billboard(v.vertex, 0.5);
+                float3 worldPos = billboard(v.vertex, max(0.5, minRadius));
 
                 // construct an object-space ray from the camera to this vertex
                 float3 worldRayDir = worldPos - _WorldSpaceCameraPos.xyz;
@@ -195,6 +218,14 @@ Shader "Planets/Garden World"
             {
                 // more Unity GPU instancing boilerplate
                 UNITY_SETUP_INSTANCE_ID(i);
+
+                // if we're far enough away go to monocrome
+                float distance = length(i.rayOrigin);
+                if (distance > _FadeMin)
+                {
+                    float b = 1 - saturate((distance - _FadeMin) / (_FadeMax - _FadeMin));
+                    return tex2D(_LandRampTexture, float2(b, 0));
+                }
 
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);
@@ -260,6 +291,9 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _FadeMin;
+            float _FadeMax;
+            sampler2D _FadeRamp;
             float _DitheringSize;
             float _CloudScale;
             float _CloudCoverage;
@@ -293,8 +327,13 @@ Shader "Planets/Garden World"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
+                // don't let planet get smaller than a pixel
+                float viewDepth = -UnityObjectToViewPos(v.vertex).z;
+                float pixelToWorldScale = viewDepth * unity_CameraProjection._m11 / _ScreenParams.x;
+                float minRadius = pixelToWorldScale * 0.75;
+
                 // billboard quad towards camera
-                float3 worldPos = billboard(v.vertex, 0.5);
+                float3 worldPos = billboard(v.vertex, max(0.5, minRadius));
 
                 // construct an object-space ray from the camera to this vertex
                 float3 worldRayDir = worldPos - _WorldSpaceCameraPos.xyz;
@@ -312,6 +351,10 @@ Shader "Planets/Garden World"
             {
                 // more Unity GPU instancing boilerplate
                 UNITY_SETUP_INSTANCE_ID(i);
+
+                // ignore pass if we're past the fade distance
+                float distance = length(i.rayOrigin);
+                clip(_FadeMin - distance);
 
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);

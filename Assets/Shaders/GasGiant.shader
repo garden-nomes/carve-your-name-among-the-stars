@@ -3,13 +3,16 @@ Shader "Planets/Gas Giant"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _FadeMin ("Fade Start Distance", Float) = 100.0
+        _FadeMax ("Maximum Distance", Float) = 300.0
+        _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
         _NoiseScale ("Noise Scale", Float) = 3.0
         _TurbulenceScale ("Turbulence Scale", Float) = 3.0
         _TurbulenceSpeed ("Turbulence Speed", Float) = 1.0
         _TurbulenceStrength ("Turbulence Strength", Float) = 1.0
         _TurbulenceRotation ("Turbulence Rotation Speed", Float) = 1.0
         _Stretch ("Stretch Noise Horizontally", Float) = 5.0
-        _RampTexture ("Ramp Texture", 2D) = "red"
+        _RampTexture ("Ramp Texture", 2D) = "red" {}
         _RimPower ("Rim Lighting", Float) = 3.0
         _DitheringSize ("Dither Size", Float) = 0.1
     }
@@ -28,6 +31,9 @@ Shader "Planets/Gas Giant"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _FadeMin;
+            float _FadeMax;
+            sampler2D _FadeRamp;
             float _NoiseScale;
             float _TurbulenceScale;
             float _TurbulenceSpeed;
@@ -61,8 +67,13 @@ Shader "Planets/Gas Giant"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
+                // don't let planet get smaller than a pixel
+                float viewDepth = -UnityObjectToViewPos(v.vertex).z;
+                float pixelToWorldScale = viewDepth * unity_CameraProjection._m11 / _ScreenParams.x;
+                float minRadius = pixelToWorldScale * 0.75;
+
                 // billboard quad towards camera
-                float3 worldPos = billboard(v.vertex, 0.5);
+                float3 worldPos = billboard(v.vertex, max(0.5, minRadius));
 
                 // construct an object-space ray from the camera to this vertex
                 float3 worldRayDir = worldPos - _WorldSpaceCameraPos.xyz;
@@ -81,12 +92,20 @@ Shader "Planets/Gas Giant"
                 // more Unity GPU instancing boilerplate
                 UNITY_SETUP_INSTANCE_ID(i);
 
+                // if we're far enough away go to monocrome
+                float distance = length(i.rayOrigin);
+                if (distance > _FadeMin)
+                {
+                    float b = 1 - saturate((distance - _FadeMin) / (_FadeMax - _FadeMin));
+                    return tex2D(_RampTexture, float2(b, 0));
+                }
+
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);
                 float rayHit = sphereIntersect(i.rayOrigin, rayDir, float4(0, 0, 0, 0.5));
                 clip(rayHit);
 
-                // compute position on sphere in objectr and world space
+                // compute position on sphere in object and world space
                 float3 objectSpacePos = rayDir * rayHit + i.rayOrigin;
                 float3 worldSpacePos = mul(unity_ObjectToWorld, float4(objectSpacePos, 1.0));
 

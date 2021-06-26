@@ -3,6 +3,9 @@ Shader "Planets/Rocky"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _FadeMin ("Fade Start Distance", Float) = 100.0
+        _FadeMax ("Maximum Distance", Float) = 300.0
+        _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
         _NoiseScale ("Noise Scale", Float) = 3.0
         _NoiseDepth ("Noise Depth", Float) = 0.25
         _RampTexture ("Ramp Texture", 2D) = "red"
@@ -24,6 +27,9 @@ Shader "Planets/Rocky"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _FadeMin;
+            float _FadeMax;
+            sampler2D _FadeRamp;
             float _NoiseScale;
             float _NoiseDepth;
             float _RimPower;
@@ -53,8 +59,13 @@ Shader "Planets/Rocky"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
+                // don't let planet get smaller than a pixel
+                float viewDepth = -UnityObjectToViewPos(v.vertex).z;
+                float pixelToWorldScale = viewDepth * unity_CameraProjection._m11 / _ScreenParams.x;
+                float minRadius = pixelToWorldScale * 0.75;
+
                 // billboard quad towards camera
-                float3 worldPos = billboard(v.vertex, 0.5);
+                float3 worldPos = billboard(v.vertex, max(0.5, minRadius));
 
                 // construct an object-space ray from the camera to this vertex
                 float3 worldRayDir = worldPos - _WorldSpaceCameraPos.xyz;
@@ -72,6 +83,14 @@ Shader "Planets/Rocky"
             {
                 // more Unity GPU instancing boilerplate
                 UNITY_SETUP_INSTANCE_ID(i);
+
+                // if we're far enough away go to monocrome
+                float distance = length(i.rayOrigin);
+                if (distance > _FadeMin)
+                {
+                    float b = 1 - saturate((distance - _FadeMin) / (_FadeMax - _FadeMin));
+                    return tex2D(_RampTexture, float2(b, 0));
+                }
 
                 // clip sphere
                 float3 rayDir = normalize(i.rayDir);
