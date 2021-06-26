@@ -28,7 +28,7 @@ public class GalaxyCreator : MonoBehaviour
         int total = 0;
         int frameCount = 0;
 
-        foreach (var point in sampler.Samples())
+        foreach (var point in sampler.Samples(transform.position))
         {
             var prefab = planetPrefabs[Random.Range(0, planetPrefabs.Length)];
             Instantiate(prefab, point, Random.rotation, transform);

@@ -29,13 +29,26 @@ public class PoissonDiskSampler3D
         this.activeSamples = new List<Vector3>();
     }
 
-    public IEnumerable<Vector3> Samples()
+    public IEnumerable<Vector3> Samples(Vector3? initialPoint = null)
     {
-        var randomPointInBounds = bounds.min + new Vector3(
-            Random.value * bounds.size.x,
-            Random.value * bounds.size.y,
-            Random.value * bounds.size.z);
-        yield return AddSample(randomPointInBounds);
+        if (initialPoint is Vector3 point)
+        {
+            // workaround, since Vector3 isn't nullable then the default (0f, 0f, 0f) indicates an
+            // uninitialized value
+            if (point == default(Vector3))
+                point.x += float.Epsilon;
+
+            yield return AddSample(initialPoint.Value);
+        }
+        else
+        {
+            var randomPointInBounds = bounds.min + new Vector3(
+                Random.value * bounds.size.x,
+                Random.value * bounds.size.y,
+                Random.value * bounds.size.z);
+
+            yield return AddSample(randomPointInBounds);
+        }
 
         while (activeSamples.Count > 0)
         {

@@ -224,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138439366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -1411,7 +1411,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 150
+  far clip plane: 1000
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -1477,10 +1477,9 @@ MonoBehaviour:
   - {fileID: 4688710593463931058, guid: cd755dbf5e3394d2b991bcce1ac75acb, type: 3}
   - {fileID: 9076187037700049912, guid: c88780ec98cea407c86c8fe444fc205f, type: 3}
   - {fileID: 5915606120545833566, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 300, y: 300, z: 300}
+  boundingRadius: 1000
   radius: 50
+  maxPerFrame: 10
 --- !u!4 &977281047
 Transform:
   m_ObjectHideFlags: 0
@@ -1489,7 +1488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977281045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2911,6 +2910,7 @@ RectTransform:
   - {fileID: 275210702}
   - {fileID: 1112258449}
   - {fileID: 1560196953}
+  - {fileID: 786945076}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3170,6 +3170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleSceneName: TitleScene
   spaceship: {fileID: 138439368}
+  fadeEffect: {fileID: 786945077}
 --- !u!4 &1936175372
 Transform:
   m_ObjectHideFlags: 0
