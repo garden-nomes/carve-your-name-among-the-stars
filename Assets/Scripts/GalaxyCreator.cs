@@ -1,74 +1,78 @@
-using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class GalaxyCreator : MonoBehaviour
 {
     public GameObject[] planetPrefabs;
-    public Bounds bounds = new Bounds(Vector3.zero, Vector3.one * 100f);
-    public float radius = 10f;
+    public float boundingRadius = 500f;
+    public float radius = 50f;
+    public int maxPerFrame = 100;
 
     private void Start()
     {
-        InstantiatePlanets();
+        StartCoroutine(InstantiatePlanetsCoroutine());
     }
 
-    private void InstantiatePlanets()
+    private IEnumerator InstantiatePlanetsCoroutine()
     {
+        var bounds = new Bounds(Vector3.zero, Vector3.one * boundingRadius);
         var sampler = new PoissonDiskSampler3D(bounds, radius);
 
-        int i = 0;
-        int n = sampler.MaxPointCount;
+        float estimatedDensity = 0.666f;
+        int estimate = (int) (bounds.size.x * bounds.size.y * bounds.size.z * estimatedDensity / (radius * radius * radius));
 
-        Debug.Log("Instantiating planets...");
+        Debug.Log("Creating planets...");
 
-        foreach (var sample in sampler.Samples())
+        int frameTotal = 0;
+        int total = 0;
+        int frameCount = 0;
+
+        foreach (var point in sampler.Samples())
         {
             var prefab = planetPrefabs[Random.Range(0, planetPrefabs.Length)];
-            Instantiate(prefab, sample, Quaternion.identity, transform);
-            i++;
+            Instantiate(prefab, point, Random.rotation, transform);
+
+            total++;
+            frameTotal++;
+
+            int currentMax = (int) ((1f - Mathf.Pow(total / estimate, 6f)) * maxPerFrame);
+            currentMax = Mathf.Max(currentMax, 0);
+
+            if (frameTotal >= currentMax)
+            {
+                yield return null;
+                frameTotal = 0;
+                frameCount++;
+            }
         }
 
-        Debug.Log($"Instantiated {i} planets");
+        Debug.Log($"Done. {total} planets created ({estimate} estimated) in {frameCount} frames.");
     }
 
 #if UNITY_EDITOR
-    private List<Vector3> previewSamples = new List<Vector3>();
-
-    private void OnValidate()
+    [ContextMenu("Test density")]
+    private void TestDensity()
     {
-        int planetCount = new PoissonDiskSampler3D(bounds, radius).MaxPointCount;
-        Debug.Log($"Maximum planet count: {planetCount}");
+        int tests = 100;
 
-        var previewBounds = bounds;
+        // volume relative to sphere size
+        float volume = boundingRadius * boundingRadius * boundingRadius / (radius * radius * radius);
+        var bounds = new Bounds(Vector3.zero, Vector3.one * boundingRadius);
 
-        previewSamples = new List<Vector3>();
-        int i = 0;
-
-        foreach (var sample in new PoissonDiskSampler3D(previewBounds, radius).Samples())
+        float avgDensity = 0f;
+        float minDensity = float.MaxValue;
+        float maxDensity = float.MinValue;
+        for (int i = 0; i < tests; i++)
         {
-            previewSamples.Add(sample);
-
-            if (i++ > 30)
-            {
-                break;
-            }
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(bounds.center, bounds.size);
-
-        if (Application.isPlaying)
-        {
-            return;
+            int count = new PoissonDiskSampler3D(bounds, radius).Samples().Count();
+            float density = count / volume;
+            avgDensity += density / (float) tests;
+            minDensity = Mathf.Min(minDensity, density);
+            maxDensity = Mathf.Max(maxDensity, density);
         }
 
-        foreach (var sample in previewSamples)
-        {
-            Gizmos.DrawWireSphere(sample, radius * 0.5f);
-        }
+        Debug.Log($"Average: {avgDensity}, Min: {minDensity}, Max: {maxDensity}");
     }
 #endif
 }
