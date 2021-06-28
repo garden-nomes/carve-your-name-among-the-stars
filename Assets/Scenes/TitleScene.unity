@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 881e9049f021a4fc0a4d57b0562050d3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.054808363, g: 0.012524672, b: 0.06274252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -719,7 +719,7 @@ RectTransform:
   - {fileID: 1442559046}
   - {fileID: 890075487}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -769,7 +769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &709638400
 GameObject:
@@ -1222,7 +1222,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1305,12 +1305,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetPrefabs:
-  - {fileID: 4688710593463931058, guid: cd755dbf5e3394d2b991bcce1ac75acb, type: 3}
-  - {fileID: 9076187037700049912, guid: c88780ec98cea407c86c8fe444fc205f, type: 3}
-  - {fileID: 5915606120545833566, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-  boundingRadius: 500
-  radius: 30
-  maxPerFrame: 10
+  - prefab: {fileID: 4688710593463931058, guid: cd755dbf5e3394d2b991bcce1ac75acb, type: 3}
+    weight: 5
+  - prefab: {fileID: 5915606120545833566, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
+    weight: 10
+  - prefab: {fileID: 9076187037700049912, guid: c88780ec98cea407c86c8fe444fc205f, type: 3}
+    weight: 3
+  boundingRadius: 600
+  radius: 50
+  maxPerFrame: 100
 --- !u!4 &977281047
 Transform:
   m_ObjectHideFlags: 0
@@ -1319,7 +1322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977281045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1450,7 +1453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1072314521
 GameObject:
@@ -2218,63 +2221,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990368546}
   m_CullTransparentMesh: 1
---- !u!1001 &2011704496
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833562, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915606120545833566, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-      propertyPath: m_Name
-      value: Rocky Planet
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
 --- !u!1 &2069073830
 GameObject:
   m_ObjectHideFlags: 0

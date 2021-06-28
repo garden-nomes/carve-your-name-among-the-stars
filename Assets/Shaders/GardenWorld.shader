@@ -27,7 +27,6 @@ Shader "Planets/Garden World"
         _TurbulenceStrength ("Turbulence Strength", Float) = 1.0
         _TurbulenceRotation ("Turbulence Rotation", Float) = 1.0
         _Stretch ("Turbulence Stretch", Float) = 1.0
-        // _CloudColor ("Cloud Color", Color) = (1.0, 1.0, 1.0, 1.0)
     }
 
     SubShader
@@ -223,6 +222,10 @@ Shader "Planets/Garden World"
                 float distance = length(i.rayOrigin);
                 if (distance > _FadeMin)
                 {
+                    // set outDepth to be the object pivot
+                    float4 clipPos = UnityObjectToClipPos(float3(0, 0, 0));
+                    outDepth = clipPos.z / clipPos.w;
+
                     float b = 1 - saturate((distance - _FadeMin) / (_FadeMax - _FadeMin));
                     return tex2D(_LandRampTexture, float2(b, 0));
                 }
@@ -302,7 +305,6 @@ Shader "Planets/Garden World"
             float _TurbulenceStrength;
             float _TurbulenceRotation;
             float _Stretch;
-            float4 _CloudColor;
 
             struct appdata
             {

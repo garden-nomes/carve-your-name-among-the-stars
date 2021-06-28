@@ -96,6 +96,10 @@ Shader "Planets/Gas Giant"
                 float distance = length(i.rayOrigin);
                 if (distance > _FadeMin)
                 {
+                    // set outDepth to be the object pivot
+                    float4 clipPos = UnityObjectToClipPos(float3(0, 0, 0));
+                    outDepth = clipPos.z / clipPos.w;
+
                     float b = 1 - saturate((distance - _FadeMin) / (_FadeMax - _FadeMin));
                     return tex2D(_RampTexture, float2(b, 0));
                 }
