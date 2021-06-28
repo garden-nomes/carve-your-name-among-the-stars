@@ -18,7 +18,7 @@ public class PlanetScanner : MonoBehaviour
 
     private SpaceshipController spaceshipController;
     private FuelTank fuelTank;
-    private PlanetInfo planet;
+    private PlanetInfo? planet;
     private bool wasMoving = true;
     private PlanetEncounterSequencer encounterSequencer;
     private float scanSoundTimer = 0f;
@@ -43,54 +43,52 @@ public class PlanetScanner : MonoBehaviour
         }
 
         // show arrow towards planet
-        planetPointer.target = planet == null || planet.isScanned ? null : planet.transform;
+        // planetPointer.target = planet == null || planet.Value.isScanned ? null : planet.Value.position;
 
         // check if planet is onscreen
-        bool isPlanetOnscreen = false;
-        if (planet != null)
+        if (planet is PlanetInfo planet_)
         {
-            var viewportPosition = Camera.main.WorldToViewportPoint(planet.transform.position);
+            var viewportPosition = Camera.main.WorldToViewportPoint(planet_.position);
             var viewportRect = new Rect(Vector2.zero, Vector2.one);
-            isPlanetOnscreen = viewportPosition.z > 0f && viewportRect.Contains(viewportPosition);
-        }
+            bool isPlanetOnscreen = viewportPosition.z > 0f && viewportRect.Contains(viewportPosition);
 
-        // scan if spaceship isn't moving
-        if (spaceshipController.Velocity.sqrMagnitude == 0f &&
-            planet != null &&
-            isPlanetOnscreen &&
-            !planet.isScanned &&
-            !fuelTank.isEmpty)
-        {
-            // play noise at regular intervals
-            scanSoundTimer -= Time.deltaTime;
-            if (scanSoundTimer <= 0f)
+            // scan if spaceship isn't moving
+            if (spaceshipController.speed == 0f &&
+                isPlanetOnscreen &&
+                !planet_.isScanned &&
+                !fuelTank.isEmpty)
             {
-                AudioSource.PlayClipAtPoint(scanSound, transform.position);
-                scanSoundTimer = scanSoundLoop;
-            }
-
-            // show scanner UI
-            scannerUI.isVisible = true;
-
-            // use progress bar as timer
-            if (scannerUI.progress < 1f)
-            {
-                scannerUI.progress += Time.deltaTime / scanTime;
-
-                if (scannerUI.progress >= 1f)
+                // play noise at regular intervals
+                scanSoundTimer -= Time.deltaTime;
+                if (scanSoundTimer <= 0f)
                 {
-                    // scan complete
-                    onComplete?.Invoke(planet);
-                    ShowDescription(planet);
-                    planet.isScanned = true;
-                    scannerUI.progress = 1f;
+                    AudioSource.PlayClipAtPoint(scanSound, transform.position);
+                    scanSoundTimer = scanSoundLoop;
+                }
+
+                // show scanner UI
+                scannerUI.isVisible = true;
+
+                // use progress bar as timer
+                if (scannerUI.progress < 1f)
+                {
+                    scannerUI.progress += Time.deltaTime / scanTime;
+
+                    if (scannerUI.progress >= 1f)
+                    {
+                        // scan complete
+                        onComplete?.Invoke(planet_);
+                        ShowDescription(planet_);
+                        planet_.isScanned = true;
+                        scannerUI.progress = 1f;
+                    }
                 }
             }
-        }
-        else
-        {
-            scannerUI.isVisible = false;
-            scannerUI.progress = 0f;
+            else
+            {
+                scannerUI.isVisible = false;
+                scannerUI.progress = 0f;
+            }
         }
     }
 
@@ -102,11 +100,11 @@ public class PlanetScanner : MonoBehaviour
     private IEnumerator ShowDescriptionCoroutine(PlanetInfo planet)
     {
         // show encounter text
-        string encounter = encounterSequencer.Next(planet.planetClass);
+        string encounter = encounterSequencer.Next(planet.type);
         yield return textController.ShowText(encounter);
 
         // if gas giant, trigger refueling sequence
-        if (planet.planetClass == PlanetClass.GasGiant)
+        if (planet.type == PlanetType.GasGiant)
         {
             yield return GetComponent<FuelTank>().RefuelCoroutine();
         }

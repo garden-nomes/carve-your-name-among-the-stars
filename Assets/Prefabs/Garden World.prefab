@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4688710593463931061}
   - component: {fileID: 4688710593463931060}
   - component: {fileID: 4688710593463931059}
-  - component: {fileID: 7681419040658271396}
   m_Layer: 0
   m_Name: Garden World
   m_TagString: Planet
@@ -123,18 +122,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: -5
---- !u!114 &7681419040658271396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688710593463931058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121fc47ef01da45e7bb0ad07ff86b181, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetClass: 2
-  nameGenerator: {fileID: 11400000, guid: 4f0ed327288f7498c8e000c43763c62e, type: 2}
-  planetName: 

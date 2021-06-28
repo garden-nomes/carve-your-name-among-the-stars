@@ -25,6 +25,7 @@ Shader "Planets/Gas Giant"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
+            #pragma instancing_options forcemaxcount:128 nolodfade nolightprobe nolightmap
 
             #include "UnityCG.cginc"
             #include "./Shared.cginc"

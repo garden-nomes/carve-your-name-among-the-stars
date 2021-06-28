@@ -11,13 +11,13 @@ public class PlanetIndicator : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private PlanetInfo _planet;
-    public PlanetInfo planet
+    private PlanetInfo? _planet;
+    public PlanetInfo? planet
     {
         get => _planet;
         set
         {
-            if (value != null && value != _planet)
+            if (value != null && (_planet == null || _planet.Value.position != value.Value.position))
             {
                 AudioSource.PlayClipAtPoint(tick, Camera.main.transform.position, 0.2f);
             }
@@ -40,31 +40,31 @@ public class PlanetIndicator : MonoBehaviour
             return;
         }
 
-        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(_planet.transform.position);
+        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(_planet.Value.position);
 
-        float distance = (spaceship.transform.position - _planet.transform.position).magnitude;
+        float distance = (spaceship.transform.position - _planet.Value.position).magnitude;
         distanceLabel.text = $"{distance.ToString("F1")} KM";
 
-        if (_planet.isScanned)
+        if (_planet.Value.isScanned)
         {
-            nameLabel.text = $"{_planet.planetName} (SCANNED)";
+            nameLabel.text = $"{_planet.Value.name} (SCANNED)";
             nameLabel.color = typeLabel.color;
         }
         else
         {
-            nameLabel.text = _planet.planetName;
+            nameLabel.text = _planet.Value.name;
             nameLabel.color = Color.white;
         }
 
-        switch (_planet.planetClass)
+        switch (_planet.Value.type)
         {
-            case PlanetClass.GardenWorld:
+            case PlanetType.GardenWorld:
                 typeLabel.text = "GARDEN WORLD";
                 break;
-            case PlanetClass.GasGiant:
+            case PlanetType.GasGiant:
                 typeLabel.text = "GAS GIANT";
                 break;
-            case PlanetClass.RockyPlanet:
+            case PlanetType.RockyPlanet:
                 typeLabel.text = "ROCKY PLANET";
                 break;
         }

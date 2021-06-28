@@ -16,15 +16,15 @@ public class PlanetEncounterSequencer
         this.rockyPlanetIndex = 0;
     }
 
-    public string Next(PlanetClass planet)
+    public string Next(PlanetType planet)
     {
         switch (planet)
         {
-            case PlanetClass.GardenWorld:
+            case PlanetType.GardenWorld:
                 return gardenWorldDeck.Draw();
-            case PlanetClass.GasGiant:
+            case PlanetType.GasGiant:
                 return gasGiantDeck.Draw();
-            case PlanetClass.RockyPlanet:
+            case PlanetType.RockyPlanet:
                 if (rockyPlanetIndex < encounters.rockyPlanetEvents.Length)
                 {
                     string encounter = encounters.rockyPlanetEvents[rockyPlanetIndex];

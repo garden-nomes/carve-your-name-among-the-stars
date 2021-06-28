@@ -16,7 +16,7 @@ public class PlanetDescriptions : ScriptableObject
 
         for (int i = 0; i < 10; i++)
         {
-            Debug.Log(sequence.Next(PlanetClass.GardenWorld));
+            Debug.Log(sequence.Next(PlanetType.GardenWorld));
         }
     }
 #endif

@@ -349,6 +349,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   engineRumble: {fileID: 1300420979}
   engineRumbleFade: 0.25
+--- !u!1001 &150056439
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2145574059030324268, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_Name
+      value: Galaxy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
 --- !u!1 &275210701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,59 +1500,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 138439367}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &977281045
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 977281047}
-  - component: {fileID: 977281046}
-  m_Layer: 0
-  m_Name: GalaxyCreator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &977281046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977281045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84115727da28c4cd4b3159caaf6a5b18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetPrefabs:
-  - prefab: {fileID: 4688710593463931058, guid: cd755dbf5e3394d2b991bcce1ac75acb, type: 3}
-    weight: 5
-  - prefab: {fileID: 5915606120545833566, guid: 9d8ccda7de9814c79bf88d83cc5a6df6, type: 3}
-    weight: 10
-  - prefab: {fileID: 9076187037700049912, guid: c88780ec98cea407c86c8fe444fc205f, type: 3}
-    weight: 3
-  boundingRadius: 600
-  radius: 50
-  maxPerFrame: 100
---- !u!4 &977281047
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977281045}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1016408578

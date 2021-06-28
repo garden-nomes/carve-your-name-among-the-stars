@@ -2,71 +2,89 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
+#endif
+
 public class GalaxyCreator : MonoBehaviour
 {
-    [System.Serializable]
-    public class WeightedPlanetPrefabs
-    {
-        public GameObject prefab;
-        public float weight = 1f;
-    }
+    public PlanetManager planetManager;
 
-    public WeightedPlanetPrefabs[] planetPrefabs;
+    [Header("Planet type ratios")]
+    public float gardenWorldRatio = 10f;
+    public float rockyPlanetRatio = 10f;
+    public float gasGiantRatio = 10f;
+
+    [Header("Size")]
     public float boundingRadius = 500f;
     public float radius = 50f;
     public int maxPerFrame = 100;
+    public float maxPerFrameFalloff = 1f;
+
+    private bool _isDone = false;
+    public bool isDone => isDone;
 
     private void Start()
     {
+        if (planetManager == null)
+        {
+            Debug.LogError("planetManager should not be null");
+            return;
+        }
+
         StartCoroutine(InstantiatePlanetsCoroutine());
     }
 
     private IEnumerator InstantiatePlanetsCoroutine()
     {
+#if UNITY_EDITOR
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+#endif
+
         var bounds = new Bounds(Vector3.zero, Vector3.one * boundingRadius);
         var sampler = new PoissonDiskSampler3D(bounds, radius);
 
-        float weightSum = planetPrefabs.Select(x => x.weight).Sum();
+        float weightSum = gardenWorldRatio + rockyPlanetRatio + gasGiantRatio;
 
-        float estimatedDensity = 0.666f;
-        int estimate = (int) (bounds.size.x * bounds.size.y * bounds.size.z * estimatedDensity / (radius * radius * radius));
-
-        Debug.Log("Creating planets...");
-
+        uint total = 0;
         int frameTotal = 0;
-        int total = 0;
         int frameCount = 0;
 
         foreach (var point in sampler.Samples(transform.position))
         {
+            // select a planet type from weighted choices
             float choice = Random.value * weightSum;
+            var type = PlanetType.GasGiant;
 
-            foreach (var planetPrefab in planetPrefabs)
-            {
-                choice -= planetPrefab.weight;
+            if ((choice -= gardenWorldRatio) < 0)
+                type = PlanetType.GardenWorld;
+            else if ((choice -= rockyPlanetRatio) < 0)
+                type = PlanetType.RockyPlanet;
 
-                if (choice < 0f)
-                {
-                    Instantiate(planetPrefab.prefab, point, Random.rotation, transform);
-                    break;
-                }
-            }
+            // add to planet manager
+            planetManager.AddPlanet(new PlanetInfo(point, type));
 
             total++;
-            frameTotal++;
 
-            int currentMax = (int) ((1f - Mathf.Pow(total / estimate, 6f)) * maxPerFrame);
-            currentMax = Mathf.Max(currentMax, 0);
+            // slowly decrease the number of planets added per frame as the operation becomes more
+            // computationally expensive
+            int falloff = Mathf.FloorToInt(Mathf.Pow(total * 0.001f, maxPerFrameFalloff));
+            int maxThisFrame = Mathf.Max(maxPerFrame - falloff, 1);
 
-            if (frameTotal >= currentMax)
+            if (frameTotal++ > maxThisFrame)
             {
-                yield return null;
                 frameTotal = 0;
                 frameCount++;
+                yield return null;
             }
         }
 
-        Debug.Log($"Done. {total} planets created ({estimate} estimated) in {frameCount} frames.");
+#if UNITY_EDITOR
+        stopwatch.Stop();
+        Debug.Log($"{total} planets created in {stopwatch.ElapsedMilliseconds} ms, {frameCount} frames");
+#endif
     }
 
 #if UNITY_EDITOR

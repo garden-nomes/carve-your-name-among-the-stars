@@ -79,7 +79,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DitheringSize: 0.1
     - _DstBlend: 0
-    - _FadeMax: 300
+    - _FadeMax: 500
     - _FadeMin: 100
     - _GlossMapScale: 1
     - _Glossiness: 0.5

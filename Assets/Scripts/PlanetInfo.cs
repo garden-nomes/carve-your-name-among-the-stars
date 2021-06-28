@@ -1,24 +1,18 @@
-using System.Collections;
 using UnityEngine;
 
-public enum PlanetClass
+public struct PlanetInfo
 {
-    GasGiant,
-    RockyPlanet,
-    GardenWorld
-}
+    public Vector3 position;
+    public PlanetType type;
+    public string name;
+    public bool isScanned;
 
-public class PlanetInfo : MonoBehaviour
-{
-    public PlanetClass planetClass;
-    public MarkovNameGeneratorScriptableObject nameGenerator;
-
-    [HideInInspector] public bool isScanned = false;
-    [HideInInspector] public string planetName;
-
-    void Start()
+    public PlanetInfo(Vector3 position, PlanetType type)
     {
-        planetName = nameGenerator.Generate();
+        this.position = position;
+        this.type = type;
+
+        name = null;
         isScanned = false;
     }
 }
