@@ -58,7 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetManager: {fileID: 2145574059030324256}
-  rotationSpeed: -5
   gardenWorldMaterial: {fileID: 2100000, guid: a6c5d3e764d5747c6b74a310aa427b0d, type: 2}
   rockyPlanetMaterial: {fileID: 2100000, guid: 0fb8c58f57bb34e2780ff11e2f9e267b, type: 2}
   gasGiantMaterial: {fileID: 2100000, guid: e8f6d98bffa12472385327def9cd32ed, type: 2}
@@ -75,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetManager: {fileID: 2145574059030324256}
+  nameGenerator: {fileID: 11400000, guid: 4f0ed327288f7498c8e000c43763c62e, type: 2}
   gardenWorldRatio: 5
   rockyPlanetRatio: 10
   gasGiantRatio: 3

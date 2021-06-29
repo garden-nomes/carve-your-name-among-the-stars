@@ -10,6 +10,7 @@ using Debug = UnityEngine.Debug;
 public class GalaxyCreator : MonoBehaviour
 {
     public PlanetManager planetManager;
+    public MarkovNameGeneratorScriptableObject nameGenerator;
 
     [Header("Planet type ratios")]
     public float gardenWorldRatio = 10f;
@@ -32,6 +33,8 @@ public class GalaxyCreator : MonoBehaviour
             Debug.LogError("planetManager should not be null");
             return;
         }
+
+        PlanetInfo.nameGenerator = nameGenerator;
 
         StartCoroutine(InstantiatePlanetsCoroutine());
     }

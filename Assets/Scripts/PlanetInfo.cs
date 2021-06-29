@@ -2,11 +2,27 @@ using UnityEngine;
 
 public class PlanetInfo
 {
+    public static MarkovNameGeneratorScriptableObject nameGenerator;
+
     public Vector3 position;
     public PlanetType type;
-    public string name = "name";
     public bool isScanned = false;
     public float radius => 0.5f;
+
+    private string _name = null;
+    public string name
+    {
+        get
+        {
+            if (_name == null && nameGenerator == null)
+            {
+                Debug.LogWarning("nameGenerator is null");
+                return "name";
+            }
+
+            return _name ?? (_name = nameGenerator.Generate());
+        }
+    }
 
     public PlanetInfo(Vector3 position, PlanetType type)
     {
