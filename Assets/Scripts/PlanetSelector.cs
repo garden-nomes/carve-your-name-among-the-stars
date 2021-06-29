@@ -8,12 +8,13 @@ public class PlanetSelector : MonoBehaviour
     public string planetTag;
     public PlanetIndicator indicator;
     public float minimumDistance = 2f;
-    public float maximumDistance = 200f;
+    public float radius = 100f;
 
     private void Update()
     {
-        var inRange = PlanetManager.instance.KNearestPlanets(transform.position, 20);
+        var inRange = PlanetManager.instance.WithinRadius(transform.position, radius);
 
+        // select the planet closest to the center of the screen using the dot value
         var selectedPlanet = inRange
             .OrderByDescending(planet =>
             {
@@ -31,7 +32,9 @@ public class PlanetSelector : MonoBehaviour
         }
 
         var closest = PlanetManager.instance.ClosestPlanet(transform.position);
-        bool isBehindOtherPlanet = closest.RayIntersect(transform.position, transform.forward) < 0f;
+
+        bool isBehindOtherPlanet = closest != null &&
+            closest.RayIntersect(transform.position, transform.forward) > 0f;
 
         if (isBehindOtherPlanet)
         {

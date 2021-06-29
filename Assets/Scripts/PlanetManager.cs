@@ -93,6 +93,13 @@ public class PlanetManager : MonoBehaviour
         return planets[index];
     }
 
+    public List<PlanetInfo> WithinRadius(Vector3 point, float radius)
+    {
+        queryResults.Clear();
+        kdQuery.Radius(kdTree, point, radius, queryResults);
+        return queryResults.Select(index => planets[index]).ToList();
+    }
+
     public List<PlanetInfo> KNearestPlanets(Vector3 point, int k)
     {
         queryResults.Clear();

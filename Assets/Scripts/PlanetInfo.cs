@@ -32,20 +32,17 @@ public class PlanetInfo
 
     public float RayIntersect(Vector3 origin, Vector3 direction)
     {
-        var toPlanet = position - origin;
+        var toOrigin = origin - position;
 
-        float toClosestPoint = Vector3.Dot(toPlanet, direction);
-        if (toClosestPoint < 0f)
+        float toClosestPoint = Vector3.Dot(toOrigin, direction);
+        float closestPointToSphereRadiusSq = toOrigin.sqrMagnitude - radius * radius;
+        float closestPointToIntersect = toClosestPoint * toClosestPoint - closestPointToSphereRadiusSq;
+
+        if (closestPointToIntersect < 0f)
         {
             return -1f;
         }
 
-        float closestPointToPlanetSq = (toClosestPoint * toClosestPoint) - toPlanet.sqrMagnitude;
-        if (closestPointToPlanetSq > radius * radius)
-        {
-            return -1f;
-        }
-
-        return toClosestPoint - Mathf.Sqrt(radius * radius - closestPointToPlanetSq);
+        return -toClosestPoint - Mathf.Sqrt(closestPointToIntersect);
     }
 }
