@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.054808363, g: 0.012524672, b: 0.06274252, a: 1}
+  m_IndirectSpecularColor: {r: 0.041338347, g: 0.0059950817, b: 0.05697891, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1237,7 +1237,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 2000
+  far clip plane: 650
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -2353,10 +2353,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Galaxy
       objectReference: {fileID: 0}
-    - target: {fileID: 2145574059030324268, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2400,18 +2396,6 @@ PrefabInstance:
     - target: {fileID: 2145574059030324270, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2145574059030324271, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
-      propertyPath: maxPerFrame
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2145574059030324271, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
-      propertyPath: boundingRadius
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2145574059030324271, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}
-      propertyPath: maxPerFrameFalloff
-      value: 1.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53be8810420e148ba87e2a8d007b57a8, type: 3}

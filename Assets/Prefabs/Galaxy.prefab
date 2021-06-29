@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetManager: {fileID: 2145574059030324256}
+  rotationSpeed: -5
   gardenWorldMaterial: {fileID: 2100000, guid: a6c5d3e764d5747c6b74a310aa427b0d, type: 2}
   rockyPlanetMaterial: {fileID: 2100000, guid: 0fb8c58f57bb34e2780ff11e2f9e267b, type: 2}
   gasGiantMaterial: {fileID: 2100000, guid: e8f6d98bffa12472385327def9cd32ed, type: 2}
@@ -77,6 +78,7 @@ MonoBehaviour:
   gardenWorldRatio: 5
   rockyPlanetRatio: 10
   gasGiantRatio: 3
-  boundingRadius: 1000
-  radius: 30
-  maxPerFrame: 1000000
+  boundingRadius: 1500
+  radius: 50
+  maxPerFrame: 200
+  maxPerFrameFalloff: 1.65

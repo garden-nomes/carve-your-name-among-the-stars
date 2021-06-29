@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.054808363, g: 0.012524672, b: 0.06274252, a: 1}
+  m_IndirectSpecularColor: {r: 0.041338347, g: 0.0059950817, b: 0.05697891, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1469,7 +1469,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 650
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -1681,7 +1681,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lateralArrow: {fileID: -8366758414183025488, guid: b3b060c29eb784bea9bc99902a6a2142, type: 3}
   diagonolArrow: {fileID: 1653888565796506056, guid: b3b060c29eb784bea9bc99902a6a2142, type: 3}
-  target: {fileID: 0}
   bounds: {fileID: 1560196953}
 --- !u!114 &1112258451
 MonoBehaviour:
