@@ -17,13 +17,15 @@ public class SpaceshipHudController : MonoBehaviour
 
     private void Update()
     {
-        float speed = spaceshipController.Velocity.magnitude;
+        speedDial.value = Mathf.InverseLerp(
+            -spaceshipController.maxSpeed,
+            spaceshipController.maxSpeed,
+            spaceshipController.speed);
 
-        speedDial.value = speed / spaceshipController.maxSpeed;
         fuelDial.value = fuelTank.fuel / 1000f;
 
-        inMotionLight.SetActive(speed > 0f);
-        fullStopLight.SetActive(speed == 0f);
+        inMotionLight.SetActive(spaceshipController.speed != 0f);
+        fullStopLight.SetActive(spaceshipController.speed == 0f);
         fuelLight.SetActive(fuelTank.fuel > 0f && fuelTank.fuel <= lowFuelWarning);
     }
 }

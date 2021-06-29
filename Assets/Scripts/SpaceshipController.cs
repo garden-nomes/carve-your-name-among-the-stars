@@ -5,8 +5,6 @@ public class SpaceshipController : MonoBehaviour
     public float maxSpeed = 30f;
     public float timeToMaxSpeed = 3f;
     public float timeToStop = 1f;
-    private Vector3 velocity;
-    public Vector3 Velocity => velocity;
     public bool disableThrottle = false;
     public FuelTank fuelTank;
 
@@ -15,10 +13,11 @@ public class SpaceshipController : MonoBehaviour
     public float timeToStopRotating = 0.25f;
     private Vector2 rotationalVelocity;
 
+    private float _speed = 0f;
+    public float speed => _speed;
+
     private bool _isAccelerating;
     public bool isAccelerating => _isAccelerating;
-
-    public float speed => velocity.magnitude;
 
     private new Rigidbody rigidbody;
 
@@ -86,28 +85,32 @@ public class SpaceshipController : MonoBehaviour
         {
             // accelerate ship
             float velocityDelta = (maxSpeed / timeToMaxSpeed) * Time.deltaTime * axis;
-            velocity += transform.forward * velocityDelta;
+
+            if (Mathf.Sign(axis) != Mathf.Sign(_speed))
+            {
+                velocityDelta *= 2f;
+            }
+
+            _speed += velocityDelta;
 
             // clamp speed
-            if (velocity.sqrMagnitude > maxSpeed * maxSpeed)
-                velocity = velocity.normalized * maxSpeed;
+            _speed = Mathf.Clamp(_speed, -maxSpeed, maxSpeed);
         }
-        else if (velocity.sqrMagnitude > 0f)
+        else if (_speed != 0f)
         {
             // deccelerate ship
             float velocityDelta = (maxSpeed / timeToStop) * Time.deltaTime;
 
-            if (velocity.sqrMagnitude <= velocityDelta * velocityDelta)
+            if (Mathf.Abs(_speed) <= velocityDelta)
             {
-                velocity = Vector3.zero;
+                _speed = 0f;
             }
             else
             {
-                float newMagnitude = velocity.magnitude - velocityDelta;
-                velocity = velocity.normalized * newMagnitude;
+                _speed = _speed - velocityDelta * Mathf.Sign(_speed);
             }
         }
 
-        transform.position += velocity * Time.deltaTime;
+        transform.position += transform.forward * _speed * Time.deltaTime;
     }
 }
