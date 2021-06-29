@@ -16,9 +16,11 @@ public class PlanetScanner : MonoBehaviour
     public TextController textController;
     public PlanetDescriptions planetDescriptions;
 
+    private bool _isScanning = false;
+    public bool isScanning => isScanning;
+
     private SpaceshipController spaceshipController;
     private FuelTank fuelTank;
-    private PlanetInfo? planet;
     private bool wasMoving = true;
     private PlanetEncounterSequencer encounterSequencer;
     private float scanSoundTimer = 0f;
@@ -32,72 +34,76 @@ public class PlanetScanner : MonoBehaviour
 
     void Update()
     {
-        // check for planets in scan radius
-        planet = null;
-        var colliders = Physics.OverlapSphere(transform.position, scanRadius);
-        foreach (var collider in colliders)
+        // check for a planet in the scan radius
+        var closestPlanet = PlanetManager.instance.ClosestPlanet(transform.position);
+
+        // check that the planet meets the conditions to show an arrow towards it
+        //   - in range
+        //   - not already scanned
+        if (closestPlanet == null ||
+            closestPlanet.isScanned ||
+            (closestPlanet.position - transform.position).sqrMagnitude > scanRadius * scanRadius)
         {
-            // NOTE: we don't expect to have more than one planet in the scan radius given how planets are spaced
-            planet = collider.GetComponent<PlanetInfo>();
-            if (planet != null) break;
+            planetPointer.target = null;
+            scannerUI.isVisible = false;
+            scannerUI.progress = 0f;
+            _isScanning = false;
+            return;
         }
 
-        // show arrow towards planet
-        // planetPointer.target = planet == null || planet.Value.isScanned ? null : planet.Value.position;
+        // show arrow towards planet if offscreen
+        planetPointer.target = closestPlanet.position;
 
-        // check if planet is onscreen
-        if (planet is PlanetInfo planet_)
+        // check if we meet the conditions to scan the planet:
+        //   - looking directly at it
+        //   - not moving
+        bool isLookingAtPlanet = closestPlanet.RayIntersect(transform.position, transform.forward) >= 0f;
+        bool isMoving = spaceshipController.speed > 0f;
+
+        if (!isLookingAtPlanet || isMoving)
         {
-            var viewportPosition = Camera.main.WorldToViewportPoint(planet_.position);
-            var viewportRect = new Rect(Vector2.zero, Vector2.one);
-            bool isPlanetOnscreen = viewportPosition.z > 0f && viewportRect.Contains(viewportPosition);
+            scannerUI.isVisible = false;
+            scannerUI.progress = 0f;
+            _isScanning = false;
+            return;
+        }
 
-            // scan if spaceship isn't moving
-            if (spaceshipController.speed == 0f &&
-                isPlanetOnscreen &&
-                !planet_.isScanned &&
-                !fuelTank.isEmpty)
+        _isScanning = true;
+
+        // play noise at regular intervals
+        scanSoundTimer -= Time.deltaTime;
+        if (scanSoundTimer <= 0f)
+        {
+            AudioSource.PlayClipAtPoint(scanSound, transform.position);
+            scanSoundTimer = scanSoundLoop;
+        }
+
+        // show scanner UI
+        scannerUI.isVisible = true;
+
+        // use progress bar as timer
+        if (scannerUI.progress < 1f)
+        {
+            scannerUI.progress += Time.deltaTime / scanTime;
+
+            if (scannerUI.progress >= 1f)
             {
-                // play noise at regular intervals
-                scanSoundTimer -= Time.deltaTime;
-                if (scanSoundTimer <= 0f)
-                {
-                    AudioSource.PlayClipAtPoint(scanSound, transform.position);
-                    scanSoundTimer = scanSoundLoop;
-                }
-
-                // show scanner UI
-                scannerUI.isVisible = true;
-
-                // use progress bar as timer
-                if (scannerUI.progress < 1f)
-                {
-                    scannerUI.progress += Time.deltaTime / scanTime;
-
-                    if (scannerUI.progress >= 1f)
-                    {
-                        // scan complete
-                        onComplete?.Invoke(planet_);
-                        ShowDescription(planet_);
-                        planet_.isScanned = true;
-                        scannerUI.progress = 1f;
-                    }
-                }
-            }
-            else
-            {
-                scannerUI.isVisible = false;
-                scannerUI.progress = 0f;
+                // scan complete
+                onComplete?.Invoke(closestPlanet);
+                ShowEncounter(closestPlanet);
+                closestPlanet.isScanned = true;
+                scannerUI.progress = 1f;
             }
         }
+
     }
 
-    private void ShowDescription(PlanetInfo planet)
+    private void ShowEncounter(PlanetInfo planet)
     {
-        StartCoroutine(ShowDescriptionCoroutine(planet));
+        StartCoroutine(ShowEncounterCoroutine(planet));
     }
 
-    private IEnumerator ShowDescriptionCoroutine(PlanetInfo planet)
+    private IEnumerator ShowEncounterCoroutine(PlanetInfo planet)
     {
         // show encounter text
         string encounter = encounterSequencer.Next(planet.type);

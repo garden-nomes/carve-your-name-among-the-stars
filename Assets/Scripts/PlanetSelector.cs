@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlanetSelector : MonoBehaviour
@@ -11,57 +12,34 @@ public class PlanetSelector : MonoBehaviour
 
     private void Update()
     {
-        var planets = GameObject.FindGameObjectsWithTag(planetTag);
+        var inRange = PlanetManager.instance.KNearestPlanets(transform.position, 20);
 
-        GameObject bestPlanet = null;
-        float bestDot = -1f;
+        var selectedPlanet = inRange
+            .OrderByDescending(planet =>
+            {
+                var toPlanet = (planet.position - transform.position).normalized;
+                return Vector3.Dot(toPlanet, transform.forward);
+            })
+            .First();
 
-        foreach (var planet in planets)
+        var toSelected = selectedPlanet.position - transform.position;
+
+        if (toSelected.sqrMagnitude < minimumDistance * minimumDistance)
         {
-            var toPlanet = planet.transform.position - transform.position;
-
-            if (toPlanet.sqrMagnitude > maximumDistance * maximumDistance)
-            {
-                continue;
-            }
-
-            float dot = Vector3.Dot(toPlanet.normalized, transform.forward);
-
-            if (dot > bestDot)
-            {
-                bestDot = dot;
-                bestPlanet = planet;
-            }
+            indicator.planet = null;
+            return;
         }
 
-        if (bestPlanet == null)
+        var closest = PlanetManager.instance.ClosestPlanet(transform.position);
+        bool isBehindOtherPlanet = closest.RayIntersect(transform.position, transform.forward) < 0f;
+
+        if (isBehindOtherPlanet)
         {
             indicator.planet = null;
         }
         else
         {
-            var toBestPlanet = bestPlanet.transform.position - transform.position;
-
-            if (toBestPlanet.sqrMagnitude < minimumDistance * minimumDistance)
-            {
-                indicator.planet = null;
-            }
-            else
-            {
-                bool isBehindOtherPlanet = Physics.Raycast(
-                    transform.position,
-                    toBestPlanet.normalized,
-                    toBestPlanet.magnitude - 1f);
-
-                if (isBehindOtherPlanet)
-                {
-                    indicator.planet = null;
-                }
-                else
-                {
-                    indicator.planet = bestPlanet.GetComponent<PlanetInfo>();
-                }
-            }
+            indicator.planet = selectedPlanet;
         }
     }
 }

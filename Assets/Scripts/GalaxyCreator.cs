@@ -85,6 +85,9 @@ public class GalaxyCreator : MonoBehaviour
         stopwatch.Stop();
         Debug.Log($"{total} planets created in {stopwatch.ElapsedMilliseconds} ms, {frameCount} frames");
 #endif
+
+        _isDone = true;
+        planetManager.GalaxyCreatorComplete();
     }
 
 #if UNITY_EDITOR

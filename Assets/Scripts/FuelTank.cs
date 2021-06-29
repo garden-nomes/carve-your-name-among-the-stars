@@ -29,8 +29,7 @@ public class FuelTank : MonoBehaviour
         if (fuel > 0f)
         {
             // consume fuel
-            float speed = spaceshipController.Velocity.magnitude;
-            fuel -= speed * Time.deltaTime * 1000f / fuelDistance;
+            fuel -= spaceshipController.speed * Time.deltaTime * 1000f / fuelDistance;
 
             if (fuel <= 0f)
             {

@@ -11,13 +11,13 @@ public class PlanetIndicator : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private PlanetInfo? _planet;
-    public PlanetInfo? planet
+    private PlanetInfo _planet;
+    public PlanetInfo planet
     {
         get => _planet;
         set
         {
-            if (value != null && (_planet == null || _planet.Value.position != value.Value.position))
+            if (value != null && (_planet == null || _planet.position != value.position))
             {
                 AudioSource.PlayClipAtPoint(tick, Camera.main.transform.position, 0.2f);
             }
@@ -40,23 +40,23 @@ public class PlanetIndicator : MonoBehaviour
             return;
         }
 
-        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(_planet.Value.position);
+        rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(_planet.position);
 
-        float distance = (spaceship.transform.position - _planet.Value.position).magnitude;
+        float distance = (spaceship.transform.position - _planet.position).magnitude;
         distanceLabel.text = $"{distance.ToString("F1")} KM";
 
-        if (_planet.Value.isScanned)
+        if (_planet.isScanned)
         {
-            nameLabel.text = $"{_planet.Value.name} (SCANNED)";
+            nameLabel.text = $"{_planet.name} (SCANNED)";
             nameLabel.color = typeLabel.color;
         }
         else
         {
-            nameLabel.text = _planet.Value.name;
+            nameLabel.text = _planet.name;
             nameLabel.color = Color.white;
         }
 
-        switch (_planet.Value.type)
+        switch (_planet.type)
         {
             case PlanetType.GardenWorld:
                 typeLabel.text = "GARDEN WORLD";

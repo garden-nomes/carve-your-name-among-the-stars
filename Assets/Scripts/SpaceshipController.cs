@@ -18,6 +18,8 @@ public class SpaceshipController : MonoBehaviour
     private bool _isAccelerating;
     public bool isAccelerating => _isAccelerating;
 
+    public float speed => velocity.magnitude;
+
     private new Rigidbody rigidbody;
 
     private void Start() { }
