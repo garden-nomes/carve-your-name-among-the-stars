@@ -80,13 +80,14 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimPower: 4
+    - _RotSpeed: 2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Stretch: 5.09
     - _TurbulenceRotation: 0.5
     - _TurbulenceScale: 2
-    - _TurbulenceSpeed: 1
+    - _TurbulenceSpeed: -3
     - _TurbulenceStrength: 2.15
     - _UVSec: 0
     - _ZWrite: 1

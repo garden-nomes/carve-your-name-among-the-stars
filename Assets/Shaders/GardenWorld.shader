@@ -3,6 +3,7 @@ Shader "Planets/Garden World"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _RotSpeed ("Rotation Speed", Float) = 2.0
         _FadeMin ("Fade Start Distance", Float) = 100.0
         _FadeMax ("Maximum Distance", Float) = 300.0
         _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
@@ -46,6 +47,7 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _RotSpeed;
             float _FadeMin;
             float _FadeMax;
             sampler2D _FadeRamp;
@@ -127,14 +129,19 @@ Shader "Planets/Garden World"
                 float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
-                // add noise
-                float n = noise(objectSpacePos * _WaterNoiseScale);
-                lighting += n * 0.25;
-
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);
                 rimLighting = pow(rimLighting, _WaterRimPower);
                 lighting += rimLighting;
+
+                // calculate rotated world position to use for noise
+                float3x3 rotationMatrix = rotationMatrixAroundY(_Time.x * _RotSpeed);
+                float3 noisePosition = mul(rotationMatrix, objectSpacePos);
+                noisePosition = mul(unity_ObjectToWorld, float4(noisePosition, 1.0));
+
+                // add noise
+                float n = noise(noisePosition * _WaterNoiseScale);
+                lighting += n * 0.25;
 
                 // dithering
                 float2 pixel = floor(i.screenPos * _ScreenParams / i.screenPos.w);
@@ -163,6 +170,7 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _RotSpeed;
             float _FadeMin;
             float _FadeMax;
             sampler2D _FadeRamp;
@@ -249,11 +257,16 @@ Shader "Planets/Garden World"
                 float4 clipPos = UnityWorldToClipPos(worldSpacePos);
                 outDepth = clipPos.z / clipPos.w;
 
+                // calculate rotated world position to use for noise
+                float3x3 rotationMatrix = rotationMatrixAroundY(_Time.x * _RotSpeed);
+                float3 noisePosition = mul(rotationMatrix, objectSpacePos);
+                noisePosition = mul(unity_ObjectToWorld, float4(noisePosition, 1.0));
+
                 // three-octave noise
-                float landmassNoise = noise(objectSpacePos * _LandmassScale);
-                landmassNoise += noise(objectSpacePos * _LandmassScale * 2) * 0.5;
-                landmassNoise += noise(objectSpacePos * _LandmassScale * 4) * 0.25;
-                landmassNoise = landmassNoise;
+                float landmassNoise = noise(noisePosition * _LandmassScale);
+                landmassNoise += noise(noisePosition * _LandmassScale * 2) * 0.5;
+                landmassNoise += noise(noisePosition * _LandmassScale * 4) * 0.25;
+                landmassNoise += noise(noisePosition * _LandmassScale * 8) * 0.5;
 
                 // clip if on water
                 clip(_LandCoverage - (landmassNoise * 0.5 + 0.5));
@@ -262,13 +275,13 @@ Shader "Planets/Garden World"
                 float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
-                // apply noise
-                lighting += landmassNoise * 0.40;
-
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);
                 rimLighting = pow(rimLighting, _LandRimPower);
                 lighting += rimLighting;
+
+                // apply noise
+                lighting += landmassNoise * 0.40;
 
                 // dithering
                 float2 pixel = floor(i.screenPos * _ScreenParams / i.screenPos.w);
@@ -297,6 +310,7 @@ Shader "Planets/Garden World"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _RotSpeed;
             float _FadeMin;
             float _FadeMax;
             sampler2D _FadeRamp;
@@ -378,17 +392,24 @@ Shader "Planets/Garden World"
                 float4 clipPos = UnityWorldToClipPos(worldSpacePos);
                 outDepth = clipPos.z / clipPos.w;
 
+                // calculate rotated world position to use for noise
+                float3x3 rotationMatrix = rotationMatrixAroundY(_Time.x * _RotSpeed);
+                float3 noisePosition = mul(rotationMatrix, objectSpacePos);
+                noisePosition = mul(unity_ObjectToWorld, float4(noisePosition, 1.0));
+
                 // turbulence
+                float3x3 turbulenceRotation = rotationMatrixAroundY(_Time.x * _TurbulenceRotation);
                 float3 turbulenceNoisePosition = objectSpacePos * _TurbulenceScale;
                 turbulenceNoisePosition *= float3(1, _Stretch, 1);
-                turbulenceNoisePosition = rotateXZ(turbulenceNoisePosition, _Time.x * _TurbulenceRotation);
+                turbulenceNoisePosition = mul(turbulenceRotation, turbulenceNoisePosition);
+                turbulenceNoisePosition = mul(rotationMatrix, turbulenceNoisePosition);
                 turbulenceNoisePosition += _Time.x * _TurbulenceSpeed;
                 float turbulence = noise(turbulenceNoisePosition);
 
                 // add noise
-                float3 noisePosition = objectSpacePos * _CloudScale + _Time.x * _TurbulenceSpeed;
-                noisePosition += turbulence * _TurbulenceStrength;
-                float n = noise(noisePosition) * 0.5 + 0.5;
+                float3 cloudNoisePosition = noisePosition * _CloudScale + _Time.x * _TurbulenceSpeed;
+                cloudNoisePosition += turbulence * _TurbulenceStrength;
+                float n = noise(cloudNoisePosition) * 0.5 + 0.5;
 
                 // dithering
                 float2 pixel = floor(i.screenPos * _ScreenParams / i.screenPos.w);

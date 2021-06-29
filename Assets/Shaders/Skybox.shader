@@ -22,7 +22,6 @@ Shader "Skybox/Space"
 
             #include "UnityCG.cginc"
             #include "./Noise.cginc"
-            #include "./Shared.cginc"
 
             struct appdata
             {

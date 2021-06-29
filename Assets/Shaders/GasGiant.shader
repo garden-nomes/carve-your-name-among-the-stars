@@ -3,6 +3,7 @@ Shader "Planets/Gas Giant"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _RotSpeed ("Rotation Speed", Float) = 2.0
         _FadeMin ("Fade Start Distance", Float) = 100.0
         _FadeMax ("Maximum Distance", Float) = 300.0
         _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
@@ -32,6 +33,7 @@ Shader "Planets/Gas Giant"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _RotSpeed;
             float _FadeMin;
             float _FadeMax;
             sampler2D _FadeRamp;
@@ -126,23 +128,29 @@ Shader "Planets/Gas Giant"
                 float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
-                // turbulence
-                float3 turbulenceNoisePosition = objectSpacePos * _TurbulenceScale;
-                turbulenceNoisePosition *= float3(1, _Stretch, 1);
-                turbulenceNoisePosition = rotateXZ(turbulenceNoisePosition, _Time.x * _TurbulenceRotation);
-                turbulenceNoisePosition += _Time.x * _TurbulenceSpeed;
-                float turbulence = noise(turbulenceNoisePosition);
-
-                // add noise
-                float3 noisePosition = objectSpacePos * float3(1, 1, 1) * _NoiseScale;
-                noisePosition += turbulence * _TurbulenceStrength;
-                float n = noise(noisePosition) * 0.5 + 0.5;
-                lighting *= n;
-
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);
                 rimLighting = pow(rimLighting, _RimPower);
                 lighting += rimLighting;
+
+                // calculate rotated world position to use for noise
+                float3x3 rotationMatrix = rotationMatrixAroundY(_Time.x * _RotSpeed);
+                float3 noisePosition = mul(rotationMatrix, objectSpacePos);
+                noisePosition = mul(unity_ObjectToWorld, float4(noisePosition, 1.0));
+
+                // turbulence
+                float3x3 turbulenceRotation = rotationMatrixAroundY(_Time.x * _TurbulenceRotation);
+                float3 turbulenceNoisePosition = objectSpacePos * _TurbulenceScale;
+                turbulenceNoisePosition *= float3(1, _Stretch, 1);
+                turbulenceNoisePosition = mul(rotationMatrix, turbulenceNoisePosition);
+                turbulenceNoisePosition = mul(turbulenceRotation, turbulenceNoisePosition);
+                turbulenceNoisePosition += _Time.x * _TurbulenceSpeed;
+                float turbulence = noise(turbulenceNoisePosition);
+
+                // add noise
+                float3 cloudNoisePosition = noisePosition * _NoiseScale;
+                cloudNoisePosition += turbulence * _TurbulenceStrength;
+                lighting *= noise(cloudNoisePosition) * 0.5 + 0.5;
 
                 // dithering
                 float2 pixel = floor(i.screenPos * _ScreenParams / i.screenPos.w);

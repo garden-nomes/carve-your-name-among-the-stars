@@ -64,9 +64,14 @@ float sphereIntersect(float3 origin, float3 direction, float4 sphere)
     return -b - h;
 }
 
-float3 rotateXZ(float3 pos, float angle)
+float3x3 rotationMatrixAroundY(float angle)
 {
-    float cosA = cos(angle);
-    float sinA = sin(angle);
-    return float3(pos.x * cosA - pos.z * sinA, pos.y, pos.x * sinA + pos.z * cosA);
+    float cosa = cos(angle);
+    float sina = sin(angle);
+
+    return float3x3(
+        cosa, 0.0, sina,
+        0.0, 1.0, 0.0,
+        -sina, 0.0, cosa
+    );
 }

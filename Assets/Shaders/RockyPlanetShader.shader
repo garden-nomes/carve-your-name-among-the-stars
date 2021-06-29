@@ -3,6 +3,7 @@ Shader "Planets/Rocky"
     Properties
     {
         _LightPosition ("Light Position", Vector) = (0.0, 0.0, 0.0, 1.0)
+        _RotSpeed ("Rotation Speed", Float) = 2.0
         _FadeMin ("Fade Start Distance", Float) = 100.0
         _FadeMax ("Maximum Distance", Float) = 300.0
         _FadeRamp ("Fade Ramp Texture", 2D) = "" {}
@@ -28,6 +29,7 @@ Shader "Planets/Rocky"
             #include "./Noise.cginc"
 
             float3 _LightPosition;
+            float _RotSpeed;
             float _FadeMin;
             float _FadeMax;
             sampler2D _FadeRamp;
@@ -118,17 +120,22 @@ Shader "Planets/Rocky"
                 float3 worldLightDir = normalize(_LightPosition - worldSpacePos);
                 float lighting = dot(worldSpaceNormal, worldLightDir);
 
-                // add noise
-                lighting += noise(objectSpacePos * _NoiseScale) * _NoiseDepth;
-                lighting += noise(objectSpacePos * _NoiseScale * 2.0) * 0.5 * _NoiseDepth;
-                lighting += noise(objectSpacePos * _NoiseScale * 4.0) * 0.25 * _NoiseDepth;
-
                 // rim lighting
                 float rimLighting = 1 + dot(rayDir, objectSpaceNormal);
                 rimLighting = pow(rimLighting, _RimPower);
                 lighting += rimLighting;
 
-                // dithering
+                // calculate rotated world position to use for noise
+                float3x3 rotationMatrix = rotationMatrixAroundY(_Time.x * _RotSpeed);
+                float3 noisePosition = mul(rotationMatrix, objectSpacePos);
+                noisePosition = mul(unity_ObjectToWorld, float4(noisePosition, 1.0));
+
+                // add noise
+                lighting += noise(noisePosition * _NoiseScale) * _NoiseDepth;
+                lighting += noise(noisePosition * _NoiseScale * 2.0) * 0.5 * _NoiseDepth;
+                lighting += noise(noisePosition * _NoiseScale * 4.0) * 0.25 * _NoiseDepth;
+
+                // subtle dithering effect
                 float2 pixel = floor(i.screenPos * _ScreenParams / i.screenPos.w);
                 lighting += ((pixel.x + pixel.y) % 2) * _DitheringSize;
                 lighting *= (1 - _DitheringSize);

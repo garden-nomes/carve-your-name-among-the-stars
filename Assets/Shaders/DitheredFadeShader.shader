@@ -22,11 +22,11 @@ Shader "GUI/Dithered Fade"
             #include "UnityCG.cginc"
 
             static float ditherMatrix[64] = {
-                0, 32,  8, 40,  2, 34, 10, 42,
+                 0, 32,  8, 40,  2, 34, 10, 42,
                 48, 16, 56, 24, 50, 18, 58, 26,
                 12, 44,  4, 36, 14, 46,  6, 38,
                 60, 28, 52, 20, 62, 30, 54, 22,
-                3, 35, 11, 43,  1, 33,  9, 41,
+                 3, 35, 11, 43,  1, 33,  9, 41,
                 51, 19, 59, 27, 49, 17, 57, 25,
                 15, 47,  7, 39, 13, 45,  5, 37,
                 63, 31, 55, 23, 61, 29, 53, 21
@@ -34,8 +34,8 @@ Shader "GUI/Dithered Fade"
 
             float dither(float2 pixel, float value)
             {
-                float index = fmod(pixel.y, 8.) * 8. + fmod(pixel.x, 8.);
-                float ditherThreshold = ditherMatrix[index] / 64.;
+                float index = fmod(pixel.y, 8.0) * 8.0 + fmod(pixel.x, 8.0);
+                float ditherThreshold = ditherMatrix[index] / 64.0;
                 return step(1.0 - value, ditherThreshold);
             }
 
