@@ -81,6 +81,11 @@ public class PlanetManager : MonoBehaviour
 
     public PlanetInfo ClosestPlanet(Vector3 point)
     {
+        if (kdTree == null)
+        {
+            return null;
+        }
+
         queryResults.Clear();
         kdQuery.ClosestPoint(kdTree, point, queryResults);
 
@@ -95,6 +100,11 @@ public class PlanetManager : MonoBehaviour
 
     public List<PlanetInfo> WithinRadius(Vector3 point, float radius)
     {
+        if (kdTree == null)
+        {
+            return new List<PlanetInfo>();
+        }
+
         queryResults.Clear();
         kdQuery.Radius(kdTree, point, radius, queryResults);
         return queryResults.Select(index => planets[index]).ToList();
@@ -102,6 +112,11 @@ public class PlanetManager : MonoBehaviour
 
     public List<PlanetInfo> KNearestPlanets(Vector3 point, int k)
     {
+        if (kdTree == null)
+        {
+            return new List<PlanetInfo>();
+        }
+
         queryResults.Clear();
         kdQuery.KNearest(kdTree, point, k, queryResults);
         return queryResults.Select(index => planets[index]).ToList();

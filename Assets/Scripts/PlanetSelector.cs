@@ -21,7 +21,14 @@ public class PlanetSelector : MonoBehaviour
                 var toPlanet = (planet.position - transform.position).normalized;
                 return Vector3.Dot(toPlanet, transform.forward);
             })
-            .First();
+            .FirstOrDefault();
+
+        if (selectedPlanet == null)
+        {
+            // planet generation is still in progress, so the KDTree for planets hasn't been built yet
+            indicator.planet = null;
+            return;
+        }
 
         var toSelected = selectedPlanet.position - transform.position;
 
